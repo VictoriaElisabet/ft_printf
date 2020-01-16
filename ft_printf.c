@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/16 12:06:50 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/16 13:59:41 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void ft_set_flag(char c, format_struct *new)
 }
 int ft_is_flag(char c)
 {
-	//printf("hiit %d", c);
 	if (c == '#' || c == '0' || c == '-' || c == '+' || c == ' ')
 		return (1);
 	else
@@ -57,7 +56,7 @@ char	*create_struct(char *format)
 	new.f_minus = 0;
 	new.f_plus = 0;
 	new.f_space = 0;
-	while (format[i] != '\0')
+	while (format[i] != '\0' && ft_is_conv_char(format[i]) != 1)
 	{
 		if (ft_is_flag(format[i]) == 1)
 			ft_set_flag(format[i], &new);
@@ -78,16 +77,19 @@ char	*create_struct(char *format)
 					}			
 			}
 		}
-		while (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1 && j < 2 && format[i] != '\0')
-		{
-			new.length[j] = format[i];
-			j++;
-			i++;
-		}
+	while (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1 && j < 2 && format[i] != '\0')
+	{
+		new.length[j] = format[i];
+		j++;
 		i++;
 	}
+	new.length[j] = '\0';
+		i++;
+	}
+	new.conv_char = format[i];
+//	printf("string %s\n", new.length);
 	printf("%d\n %d\n %d\n %d\n %d\n", new.f_hash, new.f_zero, new.f_minus, new.f_plus, new.f_space);
-	printf("%d\n %d\n %s\n", new.width, new.precision, new.length);
+	printf("%d\n %d\n %s\n %c\n", new.width, new.precision, new.length, new.conv_char);
 	return (&format[i]);
 }
 
@@ -121,6 +123,6 @@ int	main(void)
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	create_struct("%#+-0305.81llc");
+	create_struct("%#+-0305.81lllld");
 
 }
