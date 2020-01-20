@@ -6,13 +6,24 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/16 13:59:41 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/20 15:39:04 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 #include <stdarg.h>
+void ft_set_to_zero (format_struct *new)
+{
+	new->width = 0;
+	new->precision = 0;
+	new->f_hash = 0;
+	new->f_zero = 0;
+	new->f_minus = 0;
+	new->f_plus = 0;
+	new->f_space = 0;
+}
+
 void ft_set_flag(char c, format_struct *new)
 {
 	if (c == '#')
@@ -41,6 +52,24 @@ int	ft_is_conv_char(char c)
 	else
 		return (0);
 }
+int ft_set_length(char *format, format_struct *new)
+{
+	int j;
+	int i;
+
+	j = 0;
+	i = 0;
+	while (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1 && j < 2 && format[i] != '\0')
+	{
+		new->length[j] = format[i];
+		j++;
+		i++;
+	}
+	new->length[j] = '\0';
+	// needs to be - 1 since it counts one too many when it while loops 0, 1, stops at 2.
+	return (i -1);
+}
+
 char	*create_struct(char *format)
 {
 	int i;
@@ -49,13 +78,7 @@ char	*create_struct(char *format)
 
 	i = 0;
 	j = 0;
-	new.width = 0;
-	new.precision = 0;
-	new.f_hash = 0;
-	new.f_zero = 0;
-	new.f_minus = 0;
-	new.f_plus = 0;
-	new.f_space = 0;
+	ft_set_to_zero(&new);
 	while (format[i] != '\0' && ft_is_conv_char(format[i]) != 1)
 	{
 		if (ft_is_flag(format[i]) == 1)
@@ -64,56 +87,68 @@ char	*create_struct(char *format)
 		{
 			while(ft_isdigit(format[i]) == 1 && format[i] != '\0')
 			{
-				new.width = new.width * 10 + format[i] - 48;
-				i++;
+				new.width = new.width * 10 + format[i++] - 48;
 		 			if (format[i] == '.')
 					{
 						i++;
 							while(ft_isdigit(format[i]) == 1 && format[i] != '\0')
-							{			
-								new.precision = new.precision * 10 + format[i] - 48;
-								i++;
-							}
-					}			
+								new.precision = new.precision * 10 + format[i++] - 48;
+					}
 			}
 		}
-	while (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1 && j < 2 && format[i] != '\0')
-	{
-		new.length[j] = format[i];
-		j++;
-		i++;
-	}
-	new.length[j] = '\0';
-		i++;
+	if (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1)
+		i = i + ft_set_length(&format[i], &new);
+	i++;
 	}
 	new.conv_char = format[i];
-//	printf("string %s\n", new.length);
+	//printf("string %s\n", new.length);
 	printf("%d\n %d\n %d\n %d\n %d\n", new.f_hash, new.f_zero, new.f_minus, new.f_plus, new.f_space);
 	printf("%d\n %d\n %s\n %c\n", new.width, new.precision, new.length, new.conv_char);
-	return (&format[i]);
+	return (format);
 }
-
-int	ft_printf(int a, ...)
+int	format_strlen(const char *format)
 {
-	va_list ap;
-	va_list test;
 	int i;
 
 	i = 0;
-	va_start(ap, a);
-	while(i < a)
+	while (format[i] != '\0' && ft_is_conv_char(format[i]) != 1)
 	{
-		va_copy(test, ap);
-		printf("%d\n", va_arg(ap, int));
 		i++;
 	}
+	return (i + 1);
+}
+int ft_vfprintf(const char *format, va_list ap)
+{
+	int done;
+	int i;
+
+	done = 0;
 	i = 0;
-	while (i < a)
+	while (format[i] != '\0')
 	{
-		printf("%d\n", va_arg(ap, int));
+		if (format[i] == '%')
+		{
+			ap = 0;
+			//done = done + create_struct(format, ap);
+			i = i + format_strlen(&format[i]);
+		}
+		printf("%s\n", &format[i]);
+		//write(1, *format, 1);
+		done++;
 		i++;
 	}
-	return (i);
+	return (done);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list ap;
+	int done;
+
+	va_start(ap, format);
+	done = ft_vfprintf(format, ap);
+	va_end(ap);
+	return (done);
 }
 
 int	main(void)
@@ -123,6 +158,6 @@ int	main(void)
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	create_struct("%#+-0305.81lllld");
+	ft_printf("%+-0#306.8hhdtest2%d");
 
 }
