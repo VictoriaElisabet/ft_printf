@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/20 15:39:04 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:40:21 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	format_strlen(const char *format)
 	}
 	return (i + 1);
 }
-int ft_vfprintf(const char *format, va_list ap)
+int ft_vfprintf(const char *format, va_list ap):
 {
 	int done;
 	int i;
@@ -126,14 +126,17 @@ int ft_vfprintf(const char *format, va_list ap)
 	i = 0;
 	while (format[i] != '\0')
 	{
+//	printf("%s\n", &format[i]);
+
 		if (format[i] == '%')
 		{
+		//	printf("%s\n", &format[i]);
 			ap = 0;
 			//done = done + create_struct(format, ap);
+			// print the string?
 			i = i + format_strlen(&format[i]);
 		}
-		printf("%s\n", &format[i]);
-		//write(1, *format, 1);
+		ft_putchar(format[i]);
 		done++;
 		i++;
 	}
@@ -158,6 +161,6 @@ int	main(void)
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	ft_printf("%+-0#306.8hhdtest2%d");
+	ft_printf("trsts%+-0#306.8hhdtest2%+-hhdasdasf");
 
 }
