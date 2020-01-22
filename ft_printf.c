@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/21 13:40:21 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:57:43 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_is_conv_char(char c)
 	else
 		return (0);
 }
-int ft_set_length(char *format, format_struct *new)
+int ft_set_length(const char *format, format_struct *new)
 {
 	int j;
 	int i;
@@ -69,8 +69,37 @@ int ft_set_length(char *format, format_struct *new)
 	// needs to be - 1 since it counts one too many when it while loops 0, 1, stops at 2.
 	return (i -1);
 }
+void	ft_va_arg_int(format_struct *new, va_list ap)
+{
+	long long n;
+	int a;
 
-char	*create_struct(char *format)
+	if(new->length[0] == '\0')
+		n = va_arg(ap, int);
+	else if(new->length[0] == 'l' && new->length[1] == 'l')
+		n = va_arg(ap, long long);
+	else if(new->length[0] == 'l' && new->length[1] == '\0')
+	{
+		n = va_arg(ap, long);
+		printf("%ld", n);
+	}
+	else if(new->length[0] == 'h' && new->length[1] == 'h')
+	{
+		a = va_arg(ap, int);
+		n = (char)a;
+		//printf("%hhd", a);
+	}
+	else if(new->length[0] == 'l' && new->length[1] == '\0')
+		n = va_arg(ap, long);
+
+}
+void	ft_check_conv_char(format_struct *new, va_list ap)
+{
+	if (new->conv_char == 'd' || new->conv_char == 'i')
+		ft_va_arg_int(new, ap);
+}
+
+int 	create_struct(const char *format, va_list ap)
 {
 	int i;
 	int j;
@@ -101,10 +130,12 @@ char	*create_struct(char *format)
 	i++;
 	}
 	new.conv_char = format[i];
+	ft_check_conv_char(&new, ap);
 	//printf("string %s\n", new.length);
 	printf("%d\n %d\n %d\n %d\n %d\n", new.f_hash, new.f_zero, new.f_minus, new.f_plus, new.f_space);
 	printf("%d\n %d\n %s\n %c\n", new.width, new.precision, new.length, new.conv_char);
-	return (format);
+	return (0);
+	//should return the amount of chars printed.
 }
 int	format_strlen(const char *format)
 {
@@ -117,7 +148,7 @@ int	format_strlen(const char *format)
 	}
 	return (i + 1);
 }
-int ft_vfprintf(const char *format, va_list ap):
+int ft_vfprintf(const char *format, va_list ap)
 {
 	int done;
 	int i;
@@ -130,9 +161,9 @@ int ft_vfprintf(const char *format, va_list ap):
 
 		if (format[i] == '%')
 		{
+		//	printf("hiid");
 		//	printf("%s\n", &format[i]);
-			ap = 0;
-			//done = done + create_struct(format, ap);
+			done = done + create_struct(&format[i], ap);
 			// print the string?
 			i = i + format_strlen(&format[i]);
 		}
@@ -157,10 +188,10 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	//int done;
-	//int i = 10;
+	long long i = 1111144;
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	ft_printf("trsts%+-0#306.8hhdtest2%+-hhdasdasf");
+	ft_printf("test: %hhdcera test %ld", i, i);
 
 }
