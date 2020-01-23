@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/22 14:57:43 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:39:22 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,140 @@ void	ft_va_arg_int(format_struct *new, va_list ap)
 	else if(new->length[0] == 'l' && new->length[1] == 'l')
 		n = va_arg(ap, long long);
 	else if(new->length[0] == 'l' && new->length[1] == '\0')
-	{
 		n = va_arg(ap, long);
-		printf("%ld", n);
-	}
 	else if(new->length[0] == 'h' && new->length[1] == 'h')
 	{
 		a = va_arg(ap, int);
 		n = (char)a;
-		//printf("%hhd", a);
 	}
+	else if (new->length[0] == 'h' && new->length[1] == '\0')
+	{
+		a = va_arg(ap, int);
+		n = (short)a;
+	}
+}
+
+void	ft_va_arg_octal(format_struct *new, va_list ap)
+{
+	long long n;
+	int a;
+
+	if(new->length[0] == '\0')
+		n = va_arg(ap, int);
+	else if(new->length[0] == 'l' && new->length[1] == 'l')
+		n = va_arg(ap, long long);
 	else if(new->length[0] == 'l' && new->length[1] == '\0')
 		n = va_arg(ap, long);
+	else if(new->length[0] == 'h' && new->length[1] == 'h')
+	{
+		a = va_arg(ap, unsigned int);
+		n = (unsigned char)a;
+	}
+	else if (new->length[0] == 'h' && new->length[1] == '\0')
+	{
+		a = va_arg(ap, unsigned int);
+		n = (unsigned short)a;
+	}
+}
+
+void	ft_va_arg_unsigned_int(format_struct *new, va_list ap)
+{
+	unsigned long long n; 
+	unsigned int a;
+
+	if(new->length[0] == '\0')
+		n = va_arg(ap, unsigned int);
+	else if(new->length[0] == 'l' && new->length[1] == 'l')
+		n = va_arg(ap, unsigned long long);
+	else if(new->length[0] == 'l' && new->length[1] == '\0')
+		n = va_arg(ap, unsigned long);
+	else if(new->length[0] == 'h' && new->length[1] == 'h')
+	{
+		a = va_arg(ap, unsigned int);
+		n = (unsigned char)a;
+	}
+	else if (new->length[0] == 'h' && new->length[1] == '\0')
+	{
+		a = va_arg(ap, unsigned int);
+		n = (unsigned short)a;
+	}
+}
+
+void	ft_va_arg_hex(format_struct *new, va_list ap)
+{
+	unsigned long long n; 
+	unsigned int a;
+
+	if(new->length[0] == '\0')
+		n = va_arg(ap, unsigned int);
+	else if(new->length[0] == 'l' && new->length[1] == 'l')
+		n = va_arg(ap, unsigned long long);
+	else if(new->length[0] == 'l' && new->length[1] == '\0')
+		n = va_arg(ap, unsigned long);
+	else if(new->length[0] == 'h' && new->length[1] == 'h')
+	{
+		a = va_arg(ap, unsigned int);
+		n = (unsigned char)a;
+	}
+	else if (new->length[0] == 'h' && new->length[1] == '\0')
+	{
+		a = va_arg(ap, unsigned int);
+		n = (unsigned short)a;
+	}
 
 }
+void	ft_va_arg_float(format_struct *new, va_list ap)
+{
+	long double n;
+
+	if(new->length[0] == '\0' || new->length[0] == 'l')
+		n = va_arg(ap, double);
+	else if (new->length[0] == 'L')
+		n = va_arg(ap, long double);
+}
+void	ft_va_arg_char(format_struct *new, va_list ap)
+{
+	int n;
+
+	n = va_arg(ap, int);
+	n = (char)n;
+}
+
+void	ft_va_arg_string(format_struct *new, va_list ap)
+{
+	char *str;
+
+	str = va_arg(ap, char*);
+}
+
+void	ft_va_arg_mem(format_struct *new, va_list ap)
+{
+	char *str;
+
+	str = va_arg(ap, char*);
+}
+
 void	ft_check_conv_char(format_struct *new, va_list ap)
 {
 	if (new->conv_char == 'd' || new->conv_char == 'i')
 		ft_va_arg_int(new, ap);
+	else if (new->conv_char == 'o')
+		ft_va_arg_octal(new, ap);
+	else if (new->conv_char == 'u')
+		ft_va_arg_unsigned_int(new, ap);
+	else if (new->conv_char == 'x' || new->conv_char == 'X')
+		ft_va_arg_hex(new, ap);
+	else if (new->conv_char == 'f')
+		ft_va_arg_float(new, ap);
+	else if (new->conv_char == 'c')
+		ft_va_arg_char(new, ap);
+	else if (new->conv_char == 's')
+		ft_va_arg_string(new, ap);
+	else if((new->conv_char == 'p')
+		ft_va_arg_mem(new, ap);
+)
+
+
 }
 
 int 	create_struct(const char *format, va_list ap)
