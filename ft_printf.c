@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/24 14:42:28 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:12:54 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_va_arg_octal(format_struct *new, va_list ap)
 		a = va_arg(ap, unsigned int);
 		n = (unsigned short)a;
 	}
-	ft_itoa(n);
+	str = ft_itoa(n);
 }
 
 void	ft_va_arg_unsigned_int(format_struct *new, va_list ap)
@@ -178,7 +178,10 @@ void	ft_va_arg_float(format_struct *new, va_list ap)
 
 	n = 0;
 	if(new->length[0] == '\0' || new->length[0] == 'l')
+	{
 		n = va_arg(ap, double);
+		str = ft_itoa_double(n);
+	}
 	else if (new->length[0] == 'L')
 		n =  va_arg(ap, long double);
 	str = ft_itoa_float(n);
@@ -317,11 +320,11 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	//int done;
-	float i = 11.4897878;
+	float i = 11331.484497878;
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	//ft_printf("test: %fcera test %Lf\n", i, i);
-	printf("test: %fcera test %Lf", i, i);
+	ft_printf("test: %lfcera test\n", i);
+	printf("test: %lfcera test", i);
 
 }
