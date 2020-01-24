@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/24 14:30:59 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:42:28 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	ft_va_arg_float(format_struct *new, va_list ap)
 		n = va_arg(ap, double);
 	else if (new->length[0] == 'L')
 		n =  va_arg(ap, long double);
-	str = ft_itoa(n);
+	str = ft_itoa_float(n);
 	ft_putstr(str);
 }
 /*void	ft_va_arg_char(format_struct *new, va_list ap)
