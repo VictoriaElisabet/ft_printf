@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/24 15:12:54 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:05:19 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ void	ft_va_arg_octal(format_struct *new, va_list ap)
 	long long n;
 	int a;
 	char *str;
-
+	
 	n = 0;
 	if(new->length[0] == '\0')
-		n = va_arg(ap, int);
+		n = va_arg(ap, unsigned int);
 	else if(new->length[0] == 'l' && new->length[1] == 'l')
-		n = va_arg(ap, long long);
+		n = va_arg(ap, unsigned long long);
 	else if(new->length[0] == 'l' && new->length[1] == '\0')
-		n = va_arg(ap, long);
+		n = va_arg(ap, unsigned long);
 	else if(new->length[0] == 'h' && new->length[1] == 'h')
 	{
 		a = va_arg(ap, unsigned int);
@@ -119,7 +119,8 @@ void	ft_va_arg_octal(format_struct *new, va_list ap)
 		a = va_arg(ap, unsigned int);
 		n = (unsigned short)a;
 	}
-	str = ft_itoa(n);
+	str = ft_octal(n);
+	ft_putstr(str);
 }
 
 void	ft_va_arg_unsigned_int(format_struct *new, va_list ap)
@@ -147,12 +148,26 @@ void	ft_va_arg_unsigned_int(format_struct *new, va_list ap)
 	}
 	str = ft_itoa(n);
 }
+char *ft_string_tolower(char *str)
+{
+	int i;
+	
+	i = 0;
+	while(str[i] != '\0')
+	{
+		str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	return (str);
+}
 
 void	ft_va_arg_hex(format_struct *new, va_list ap)
 {
 	unsigned long long n; 
 	unsigned int a;
+	char *str;
 
+	n = 0;
 	if(new->length[0] == '\0')
 		n = va_arg(ap, unsigned int);
 	else if(new->length[0] == 'l' && new->length[1] == 'l')
@@ -169,7 +184,10 @@ void	ft_va_arg_hex(format_struct *new, va_list ap)
 		a = va_arg(ap, unsigned int);
 		n = (unsigned short)a;
 	}
-
+	str = ft_hex(n);
+	if (new->conv_char == 'x')
+		str = ft_string_tolower(str);
+	ft_putstr(str);
 }
 void	ft_va_arg_float(format_struct *new, va_list ap)
 {
@@ -184,7 +202,7 @@ void	ft_va_arg_float(format_struct *new, va_list ap)
 	}
 	else if (new->length[0] == 'L')
 		n =  va_arg(ap, long double);
-	str = ft_itoa_float(n);
+	str = ft_itoa_double(n);
 	ft_putstr(str);
 }
 /*void	ft_va_arg_char(format_struct *new, va_list ap)
@@ -320,11 +338,10 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	//int done;
-	float i = 11331.484497878;
+	int i = 1456;
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	ft_printf("test: %lfcera test\n", i);
-	printf("test: %lfcera test", i);
-
+	ft_printf("test: %xcera test\n", i);
+	printf("test: %xcera test", i);
 }
