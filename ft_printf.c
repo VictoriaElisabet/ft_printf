@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/27 16:05:19 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/28 13:14:25 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_is_conv_char(char c)
 }
 int ft_set_length(const char *format, format_struct *new)
 {
-	int j;
+	int  j;
 	int i;
 
 	j = 0;
@@ -93,7 +93,6 @@ void	ft_va_arg_int(format_struct *new, va_list ap)
 		n = (short)a;
 	}
 	str = ft_itoa(n);
-	ft_putstr(str);
 }
 
 void	ft_va_arg_octal(format_struct *new, va_list ap)
@@ -216,16 +215,19 @@ void	ft_va_arg_float(format_struct *new, va_list ap)
 void	ft_va_arg_string(format_struct *new, va_list ap)
 {
 	char *str;
-
+                    
 	str = va_arg(ap, char*);
 }
-
-void	ft_va_arg_mem(format_struct *new, va_list ap)
+*/
+void	ft_va_arg_mem(va_list ap)
 {
+	long long n;
 	char *str;
 
-	str = va_arg(ap, char*);
-}*/
+	n = va_arg(ap, long long);
+	str = ft_string_tolower(ft_hex(n));
+	ft_putstr(str);
+}
 
 void	ft_check_conv_char(format_struct *new, va_list ap)
 {
@@ -242,11 +244,9 @@ void	ft_check_conv_char(format_struct *new, va_list ap)
 /*	else if (new->conv_char == 'c')
 		ft_va_arg_char(new, ap);
 	else if (new->conv_char == 's')
-		ft_va_arg_string(new, ap);
+		ft_va_arg_string(new, ap); */
 	else if(new->conv_char == 'p')
-		ft_va_arg_mem(new, ap); */
-
-
+		ft_va_arg_mem(ap);
 }
 
 int 	create_struct(const char *format, va_list ap)
@@ -293,7 +293,7 @@ int	format_strlen(const char *format)
 
 	i = 0;
 	while (format[i] != '\0' && ft_is_conv_char(format[i]) != 1)
-	{
+	{  
 		i++;
 	}
 	return (i + 1);
@@ -338,10 +338,12 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	//int done;
-	int i = 1456;
+	char s = 's';
+//	int i = 1456;
+//	float c = 12.33;
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	ft_printf("test: %xcera test\n", i);
-	printf("test: %xcera test", i);
+	//ft_printf("test: %pcera test\n", &i);
+	printf("test: %4.0ccera test", s);
 }
