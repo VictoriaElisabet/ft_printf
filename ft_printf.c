@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/28 13:14:25 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:58:55 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,161 @@ int ft_set_length(const char *format, format_struct *new)
 	// needs to be - 1 since it counts one too many when it while loops 0, 1, stops at 2.
 	return (i -1);
 }
+char	*ft_add_ox(char *str, format_struct *new)
+{
+	char *str1;
+	char *str2;
+
+	if(!(str1 = (char*)malloc(3 * sizeof(char))))
+		return (NULL);
+	if (new->conv_char == 'X')
+	{
+		str1[0] = '0';
+		str1[1] = 'X';
+		str1[2] = '\0';
+	}
+	else
+	{
+		str1[0] = '0';
+		str1[1] = 'x';
+		str1[2] = '\0';
+	}
+	str2 = ft_strcat(str1, str);
+	free(str1);
+	return(str2);
+}
+char *ft_set_zero(char *str, format_struct *new)
+{
+	char *str2;
+	int len;
+	int preclen;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	len = (new->precision - ft_strlen(str)) + ft_strlen(str);
+	preclen = new->precision - ft_strlen(str);
+	if(!(str2 = (char*)malloc(len * sizeof(char) + 1)))
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		if (preclen > 0)
+		{
+			str2[j] = '0';
+			preclen--;
+		}
+		else
+		{
+			str2[j] = str[i];
+			i++;
+		}
+		j++;
+	}
+	str2[j] = '\0';
+	return (str2);
+}
+char *ft_set_space(char *str, format_struct *new, char sign)
+{
+	char *str2;
+	int len;
+	int i;
+	int j;
+	int widthlen;
+
+	i = 0;
+	j = 0;
+	len = (new->width - ft_strlen(str)) + ft_strlen(str);
+	widthlen = new->width - ft_strlen(str); 
+	if(!(str2 = (char*)malloc(len * sizeof(char) + 1)))
+		return (NULL);
+	if (new->f_minus == 1)
+	{
+		while (str[i] != '\0')
+		{
+			str2[j] = str[i];
+			i++;
+			j++;
+		}
+		while(widthlen > 0)
+		{
+			str2[j] = ' ';
+			widthlen--;
+			j++;
+		}
+	}
+	else
+	{
+	while (str[i] != '\0')
+	{
+		if (widthlen > 0)
+		{
+			str2[j] = sign;
+			widthlen--;
+		}
+		else
+		{
+			str2[j] = str[i];
+			i++;
+		}
+		j++;
+	}
+	}
+	str2[j] = '\0';
+	return(str2);
+
+}
+
+char *ft_set_sign(char *str, char sign)
+{
+	char *str1;
+	char *str2;
+
+	str1 = (char*)malloc(2 * sizeof(char));
+	if (str[0] == '-')
+		return (str);
+	str1[0] = sign;
+	str1[1] = '\0';
+	str2 = ft_strcat(str1, str);
+	free(str1);
+	return (str2);
+	
+}
+void	ft_check_flags_diouxx(char *str, format_struct *new)
+{
+	if ((new->conv_char == 'x' || new->conv_char == 'X') && new->f_hash == 1)
+		str = ft_add_ox(str, new);
+	if (new->conv_char == 'o' && new->f_hash == 1)
+		new->precision = ft_strlen(str) + 1;
+	if (new->precision != 0)
+	{
+		new->f_zero = 0;
+		if (new->precision > ft_strlen(str))
+			str = ft_set_zero (str, new);
+	}
+	if ((new->conv_char == 'd' || new->conv_char == 'i') && new->f_plus == 1)
+	{
+		new->f_space = 0;
+		str = ft_set_sign(str, '+');
+	}
+	if ((new->conv_char == 'd' || new->conv_char == 'i') && new->f_space == 1)
+		str = ft_set_sign(str, ' ');
+	if (new->width != 0 && new->width > ft_strlen(str))
+	{
+		if(new->f_minus == 1)
+		{
+			new->f_zero = 0;
+			str = ft_set_space(str, new, ' ');
+		}
+		else if (new->f_zero == 1)
+			str = ft_set_space(str, new, '0');
+		else
+			str = ft_set_space(str, new, ' ');
+	}
+
+//	free(str);
+	ft_putstr(str);
+}
 void	ft_va_arg_int(format_struct *new, va_list ap)
 {
 	char *str;
@@ -93,6 +248,9 @@ void	ft_va_arg_int(format_struct *new, va_list ap)
 		n = (short)a;
 	}
 	str = ft_itoa(n);
+	ft_check_flags_diouxx(str, new);
+	//should return an int with the length of the string printed + one for the \0 e.g return(ft_check_flags(str))
+
 }
 
 void	ft_va_arg_octal(format_struct *new, va_list ap)
@@ -186,7 +344,7 @@ void	ft_va_arg_hex(format_struct *new, va_list ap)
 	str = ft_hex(n);
 	if (new->conv_char == 'x')
 		str = ft_string_tolower(str);
-	ft_putstr(str);
+	ft_check_flags_diouxx(str, new);
 }
 void	ft_va_arg_float(format_struct *new, va_list ap)
 {
@@ -262,7 +420,7 @@ int 	create_struct(const char *format, va_list ap)
 	{
 		if (ft_is_flag(format[i]) == 1)
 			ft_set_flag(format[i], &new);
-		else if (ft_isdigit(format[i]) == 1 && format[i] != '0')
+		if (ft_isdigit(format[i]) == 1 && format[i] != '0')
 		{
 			while(ft_isdigit(format[i]) == 1 && format[i] != '\0')
 			{
@@ -277,9 +435,12 @@ int 	create_struct(const char *format, va_list ap)
 		}
 	if (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1)
 		i = i + ft_set_length(&format[i], &new);
+	if (ft_is_conv_char(format[i]) == 1)
+		break;
 	i++;
 	}
 	new.conv_char = format[i];
+	//printf("char %c\n", format[i]);
 	ft_check_conv_char(&new, ap);
 	//printf("string %s\n", new.length);
 	//printf("%d\n %d\n %d\n %d\n %d\n", new.f_hash, new.f_zero, new.f_minus, new.f_plus, new.f_space);
@@ -338,12 +499,12 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	//int done;
-	char s = 's';
-//	int i = 1456;
+	//char s = 's';
+	int i = 1456;
 //	float c = 12.33;
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	//ft_printf("test: %pcera test\n", &i);
-	printf("test: %4.0ccera test", s);
+	ft_printf("test:%xcera test\n", i);
+	printf("test:%xcera test", i);
 }
