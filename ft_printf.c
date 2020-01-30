@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/29 15:58:55 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/01/30 09:17:38 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,7 +435,7 @@ int 	create_struct(const char *format, va_list ap)
 		}
 	if (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1)
 		i = i + ft_set_length(&format[i], &new);
-	if (ft_is_conv_char(format[i]) == 1)
+	if (ft_is_conv_char(format[i]) == 1) // add if conv_char == %, break and add as conv_char, remove ft_is_conv in the outer loop or set if format[i] == % break. 
 		break;
 	i++;
 	}
@@ -505,6 +505,6 @@ int	main(void)
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4, 7);
-	ft_printf("test:%xcera test\n", i);
-	printf("test:%xcera test", i);
+	ft_printf("test:%+ucera test\n", i);
+	printf("test:%+ucera test", i);
 }
