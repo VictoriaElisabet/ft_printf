@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/01/30 09:17:38 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/03 15:00:46 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ char *ft_set_sign(char *str, char sign)
 	str1[0] = sign;
 	str1[1] = '\0';
 	str2 = ft_strcat(str1, str);
-	free(str1);
+	//free(str1);
 	return (str2);
 	
 }
@@ -195,10 +195,10 @@ void	ft_check_flags_diouxx(char *str, format_struct *new)
 		str = ft_add_ox(str, new);
 	if (new->conv_char == 'o' && new->f_hash == 1)
 		new->precision = ft_strlen(str) + 1;
-	if (new->precision != 0)
+	if (new->precision < 0)
 	{
 		new->f_zero = 0;
-		if (new->precision > ft_strlen(str))
+		if (new->precision > (int)ft_strlen(str))
 			str = ft_set_zero (str, new);
 	}
 	if ((new->conv_char == 'd' || new->conv_char == 'i') && new->f_plus == 1)
@@ -208,7 +208,7 @@ void	ft_check_flags_diouxx(char *str, format_struct *new)
 	}
 	if ((new->conv_char == 'd' || new->conv_char == 'i') && new->f_space == 1)
 		str = ft_set_sign(str, ' ');
-	if (new->width != 0 && new->width > ft_strlen(str))
+	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
 		if(new->f_minus == 1)
 		{
@@ -224,6 +224,95 @@ void	ft_check_flags_diouxx(char *str, format_struct *new)
 //	free(str);
 	ft_putstr(str);
 }
+int	count_to_dot(char *str)
+{
+	int counter;
+
+	counter = 0;
+	while(*str != '\0' && *str != '.')
+	{
+		str++;
+		counter++;
+	}
+	return (counter + 1);
+}
+char *ft_copy_string(char *str, int len)
+{
+	char *str1;
+	int i;
+
+	i = 0;
+	str1 = (char*)malloc(len *sizeof(char) + 1);
+	while(i < len && str[i] != '\0')
+	{
+		str1[i] = str[i];
+		i++;
+	}
+	str1[i] = '\0';
+	return(str1);
+}
+void	ft_check_flags_float(char *str, format_struct *new)
+{
+	int len;
+
+	len = count_to_dot(str);
+	if (new->f_hash == 1 && new->precision == -1)
+		str = ft_copy_string(str, len);
+	if (new->precision > 0 || new->precision == -1)
+	{
+		new->f_zero = 0;
+		if (new->precision == -1)
+			str = ft_copy_string(str, len - 1);
+		else if (new->precision > (int)ft_strlen(str))
+			str = ft_set_zero (str, new);
+		else if (new->precision < (int)ft_strlen(str))
+			str = ft_copy_string(str,len + new->precision);
+	}
+	if (new->f_plus == 1)
+	{
+		new->f_space = 0;
+		str = ft_set_sign(str, '+');
+	}
+	if (new->f_space == 1)
+		str = ft_set_sign(str, ' ');
+	if (new->width != 0 && new->width > (int)ft_strlen(str))
+	{
+		if(new->f_minus == 1)
+		{
+			new->f_zero = 0;
+			str = ft_set_space(str, new, ' ');
+		}
+		else if (new->f_zero == 1)
+			str = ft_set_space(str, new, '0');
+		else
+			str = ft_set_space(str, new, ' ');
+}
+	ft_putstr(str);
+
+}
+
+void 	ft_check_flags_char(char *str, format_struct *new)
+{
+	if (new->width != 0 && new->width > (int)ft_strlen(str))
+		str = ft_set_space(str, new, ' ');
+	ft_putstr(str);
+}
+
+void 	ft_check_flags_string(char *str, format_struct *new)
+{
+	char *str1;
+
+	str1 = ft_strnew(new->precision);
+	if (new->precision != 0 && new->precision < (int)ft_strlen(str))
+			str = ft_strncpy(str1, str, new->precision);
+	if (new->width != 0 && new->width > (int)ft_strlen(str))
+		str = ft_set_space(str, new, ' ');
+
+	free(str1);
+	ft_putstr(str);
+		
+}
+
 void	ft_va_arg_int(format_struct *new, va_list ap)
 {
 	char *str;
@@ -277,6 +366,7 @@ void	ft_va_arg_octal(format_struct *new, va_list ap)
 		n = (unsigned short)a;
 	}
 	str = ft_octal(n);
+	ft_check_flags_diouxx(str, new);
 	ft_putstr(str);
 }
 
@@ -304,6 +394,7 @@ void	ft_va_arg_unsigned_int(format_struct *new, va_list ap)
 		n = (unsigned short)a;
 	}
 	str = ft_itoa(n);
+	ft_check_flags_diouxx(str, new);
 }
 char *ft_string_tolower(char *str)
 {
@@ -355,19 +446,29 @@ void	ft_va_arg_float(format_struct *new, va_list ap)
 	if(new->length[0] == '\0' || new->length[0] == 'l')
 	{
 		n = va_arg(ap, double);
-		str = ft_itoa_double(n);
+	//	str = ft_itoa_double(n, new->precision);
 	}
 	else if (new->length[0] == 'L')
 		n =  va_arg(ap, long double);
-	str = ft_itoa_double(n);
-	ft_putstr(str);
+	if (new->precision == 0)
+		str = ft_itoa_double(n, 6);
+	else if (new->precision == -1)
+		str = ft_itoa_double(n, 0);
+	else
+		str = ft_itoa_double(n, new->precision);
+	ft_check_flags_float(str, new);
 }
-/*void	ft_va_arg_char(format_struct *new, va_list ap)
+void	ft_va_arg_char(format_struct *new, va_list ap)
 {
-	int n;
+	char n;
+	int a;
+	char str[2];
 
-	n = va_arg(ap, int);
-	n = (char)n;
+	a = va_arg(ap, int);
+	n = (unsigned char)a;
+	str[0] = n;
+	str[1] = '\0';
+	ft_check_flags_char(str, new);
 }
 
 void	ft_va_arg_string(format_struct *new, va_list ap)
@@ -375,16 +476,18 @@ void	ft_va_arg_string(format_struct *new, va_list ap)
 	char *str;
                     
 	str = va_arg(ap, char*);
+	ft_check_flags_string(str, new);
 }
-*/
-void	ft_va_arg_mem(va_list ap)
+
+void	ft_va_arg_mem(format_struct *new, va_list ap)
 {
 	long long n;
 	char *str;
 
 	n = va_arg(ap, long long);
 	str = ft_string_tolower(ft_hex(n));
-	ft_putstr(str);
+	str = ft_add_ox(str, new);
+	ft_check_flags_char(str, new);
 }
 
 void	ft_check_conv_char(format_struct *new, va_list ap)
@@ -399,12 +502,12 @@ void	ft_check_conv_char(format_struct *new, va_list ap)
 		ft_va_arg_hex(new, ap);
 	else if (new->conv_char == 'f')
 		ft_va_arg_float(new, ap);
-/*	else if (new->conv_char == 'c')
+	else if (new->conv_char == 'c')
 		ft_va_arg_char(new, ap);
 	else if (new->conv_char == 's')
-		ft_va_arg_string(new, ap); */
+		ft_va_arg_string(new, ap);
 	else if(new->conv_char == 'p')
-		ft_va_arg_mem(ap);
+		ft_va_arg_mem(new, ap);
 }
 
 int 	create_struct(const char *format, va_list ap)
@@ -428,6 +531,8 @@ int 	create_struct(const char *format, va_list ap)
 		 			if (format[i] == '.')
 					{
 						i++;
+							if (ft_isdigit(format[i]) != 1 || format[i] == '0')
+								new.precision = -1;
 							while(ft_isdigit(format[i]) == 1 && format[i] != '\0')
 								new.precision = new.precision * 10 + format[i++] - 48;
 					}
@@ -499,12 +604,14 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	//int done;
-	//char s = 's';
-	int i = 1456;
-//	float c = 12.33;
+	//char *s = "string";
+	//int i = 1456;
+	float c = 12.12;
 
 	//char *str = "japp\0";
-	//done = ft_printf(3, 10, 4, 7);
-	ft_printf("test:%+ucera test\n", i);
-	printf("test:%+ucera test", i);
+	//done = ft_printf(3, 10, 4,i 7);
+	ft_printf("test:%+9.2fcera test\n", c);
+	printf("test:%+9.2fcera test", c);
+//	while(1)
+//	{}
 }
