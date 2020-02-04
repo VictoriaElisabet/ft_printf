@@ -6,7 +6,7 @@
 /*   By: vgrankul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/03 15:00:46 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/04 11:37:50 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,44 +185,48 @@ char *ft_set_sign(char *str, char sign)
 	str1[0] = sign;
 	str1[1] = '\0';
 	str2 = ft_strcat(str1, str);
-	//free(str1);
 	return (str2);
 	
 }
 void	ft_check_flags_diouxx(char *str, format_struct *new)
 {
+	char *str2;
+
+	str2 = NULL;
 	if ((new->conv_char == 'x' || new->conv_char == 'X') && new->f_hash == 1)
-		str = ft_add_ox(str, new);
+		str2 = ft_add_ox(str, new);
 	if (new->conv_char == 'o' && new->f_hash == 1)
 		new->precision = ft_strlen(str) + 1;
 	if (new->precision < 0)
 	{
 		new->f_zero = 0;
 		if (new->precision > (int)ft_strlen(str))
-			str = ft_set_zero (str, new);
+			str2 = ft_set_zero (str, new);
 	}
 	if ((new->conv_char == 'd' || new->conv_char == 'i') && new->f_plus == 1)
 	{
 		new->f_space = 0;
-		str = ft_set_sign(str, '+');
+		str2 = ft_set_sign(str, '+');
 	}
 	if ((new->conv_char == 'd' || new->conv_char == 'i') && new->f_space == 1)
-		str = ft_set_sign(str, ' ');
+		str2 = ft_set_sign(str, ' ');
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
 		if(new->f_minus == 1)
 		{
 			new->f_zero = 0;
-			str = ft_set_space(str, new, ' ');
+			str2 = ft_set_space(str, new, ' ');
 		}
 		else if (new->f_zero == 1)
-			str = ft_set_space(str, new, '0');
+			str2 = ft_set_space(str, new, '0');
 		else
-			str = ft_set_space(str, new, ' ');
+			str2 = ft_set_space(str, new, ' ');
 	}
 
-//	free(str);
-	ft_putstr(str);
+	ft_putstr(str2);
+	free(str2);
+	free(str);
+
 }
 int	count_to_dot(char *str)
 {
@@ -254,62 +258,71 @@ char *ft_copy_string(char *str, int len)
 void	ft_check_flags_float(char *str, format_struct *new)
 {
 	int len;
+	char *str2;
 
 	len = count_to_dot(str);
 	if (new->f_hash == 1 && new->precision == -1)
-		str = ft_copy_string(str, len);
-	if (new->precision > 0 || new->precision == -1)
+		str2 = ft_copy_string(str, len);
+	else if (new->precision > 0 || new->precision == -1)
 	{
 		new->f_zero = 0;
 		if (new->precision == -1)
-			str = ft_copy_string(str, len - 1);
+			str2 = ft_copy_string(str, len - 1);
 		else if (new->precision > (int)ft_strlen(str))
-			str = ft_set_zero (str, new);
+			str2 = ft_set_zero (str, new);
 		else if (new->precision < (int)ft_strlen(str))
-			str = ft_copy_string(str,len + new->precision);
+			str2 = ft_copy_string(str,len + new->precision);
 	}
 	if (new->f_plus == 1)
 	{
 		new->f_space = 0;
-		str = ft_set_sign(str, '+');
+		str2 = ft_set_sign(str, '+');
 	}
 	if (new->f_space == 1)
-		str = ft_set_sign(str, ' ');
+		str2 = ft_set_sign(str, ' ');
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
 		if(new->f_minus == 1)
 		{
 			new->f_zero = 0;
-			str = ft_set_space(str, new, ' ');
+			str2 = ft_set_space(str, new, ' ');
 		}
 		else if (new->f_zero == 1)
-			str = ft_set_space(str, new, '0');
+			str2 = ft_set_space(str, new, '0');
 		else
-			str = ft_set_space(str, new, ' ');
+			str2 = ft_set_space(str, new, ' ');
 }
-	ft_putstr(str);
+	ft_putstr(str2);
+	free(str);
+	free(str2);
 
 }
 
 void 	ft_check_flags_char(char *str, format_struct *new)
 {
+	char *str2;
+
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
-		str = ft_set_space(str, new, ' ');
-	ft_putstr(str);
+		str2 = ft_set_space(str, new, ' ');
+	ft_putstr(str2);
+	free(str);
+	free(str2);
 }
 
 void 	ft_check_flags_string(char *str, format_struct *new)
 {
-	char *str1;
+	char *str2;
 
 	str1 = ft_strnew(new->precision);
 	if (new->precision != 0 && new->precision < (int)ft_strlen(str))
-			str = ft_strncpy(str1, str, new->precision);
+			str2 = ft_copy_string(str, new->precision);
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
-		str = ft_set_space(str, new, ' ');
+		str2 = ft_set_space(str, new, ' ');
 
 	free(str1);
-	ft_putstr(str);
+	ft_putstr(str2);
+	free(str);
+	free(str2);
 		
 }
 
@@ -367,7 +380,6 @@ void	ft_va_arg_octal(format_struct *new, va_list ap)
 	}
 	str = ft_octal(n);
 	ft_check_flags_diouxx(str, new);
-	ft_putstr(str);
 }
 
 void	ft_va_arg_unsigned_int(format_struct *new, va_list ap)
@@ -605,13 +617,13 @@ int	main(void)
 {
 	//int done;
 	//char *s = "string";
-	//int i = 1456;
-	float c = 12.12;
+	int i = 1456;
+	//float c = 12.12;
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4,i 7);
-	ft_printf("test:%+9.2fcera test\n", c);
-	printf("test:%+9.2fcera test", c);
-//	while(1)
-//	{}
+	ft_printf("test:%+4dfcera test\n", i);
+	printf("test:%+4dcera test", i);
+	while(1)
+	{}
 }
