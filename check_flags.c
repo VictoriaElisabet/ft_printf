@@ -6,33 +6,32 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/06 16:46:45 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:57:25 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_check_flags_diouxx(char *str, t_format_struct *new)
+int	ft_check_flags_diouxx(char *str, t_format_struct *new)
 {
-	char *str2;
+	char *tmp;
 
-	str2 = str;
-	
+	tmp = str;	
 	if (new->conv_char == 'o' && new->f_hash == 1)
 	{
-		str2 = str;
+		tmp = str;
 		new->precision = ft_strlen(str) + 1;
 	}
 	if (new->precision > 0)
 	{
-		str2 = str;
+		tmp = str;
 		new->f_zero = 0;
 		if (new->precision > (int)ft_strlen(str))
 			str = ft_set_zero (str, new);
 	}
 	if ((new->conv_char == 'x' || new->conv_char == 'X') && new->f_hash == 1)
 	{
-		str2 = str;
+		tmp = str;
 		str = ft_add_ox(str, new);
 	}
 	if ((new->conv_char == 'd' || new->conv_char == 'i') && new->f_plus == 1)
@@ -44,7 +43,7 @@ void	ft_check_flags_diouxx(char *str, t_format_struct *new)
 		str = ft_set_sign(str, ' ');
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
-		str2 = str;
+		tmp = str;
 		if(new->f_minus == 1)
 		{
 			new->f_zero = 0;
@@ -55,28 +54,28 @@ void	ft_check_flags_diouxx(char *str, t_format_struct *new)
 		else if (new ->f_zero != 1)
 			str = ft_set_space(str, new, ' ');
 	}
-	//system("leaks a.out");
-	//ft_putstr(str);
 	ft_putstr(str);
-	free(str2);
-	free(str);
+	free(tmp);
+//	system("leaks a.out");
+	return (ft_strlen(str));
+	//free(str);
 
 }
-void	ft_check_flags_float(char *str, t_format_struct *new)
+int	ft_check_flags_float(char *str, t_format_struct *new)
 {
 	int len;
-	char *str2;
+	char *tmp;
 
-	str2 = str;
+	tmp = str;
 	len = count_to_dot(str);
 	if (new->f_hash == 1 && new->precision == -1)
 	{
-		str2 = str;
+		tmp = str;
 		str = ft_copy_string(str, len);
 	}
 	else if (new->precision > 0 || new->precision == -1)
 	{
-		str2 = str;
+		tmp = str;
 		new->f_zero = 0;
 		if (new->precision == -1)
 			str = ft_copy_string(str, len - 1);
@@ -94,7 +93,7 @@ void	ft_check_flags_float(char *str, t_format_struct *new)
 		str = ft_set_sign(str, ' ');
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
-		str2 = str;
+		tmp = str;
 		if(new->f_minus == 1)
 		{
 			new->f_zero = 0;
@@ -106,42 +105,47 @@ void	ft_check_flags_float(char *str, t_format_struct *new)
 			str = ft_set_space(str, new, ' ');
 }
 	ft_putstr(str);
-	free(str);
-	free(str2);
+//	free(str);
+	free(tmp);
+	return(ft_strlen(str));
 
 }
-void 	ft_check_flags_char(char *str, t_format_struct *new)
+int 	ft_check_flags_char(char *str, t_format_struct *new)
 {
-	char *str2;
+	char *tmp;
 
-	str2 = str;
+	tmp = ft_strnew(ft_strlen(str));
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
-		str2 = str;
-		str = ft_set_space(str, new, ' ');
+		tmp = ft_set_space(str, new, ' ');
+		str = tmp;
 	}
 	ft_putstr(str);
-	free(str);
-	free(str2);
+	//free(str);
+	free(tmp);
+
+	return(ft_strlen(str));
 }
 
-void 	ft_check_flags_string(char *str, t_format_struct *new)
+int 	ft_check_flags_string(char *str, t_format_struct *new)
 {
-	char *str2;
+	char *tmp;
 
-	str2 = str;
+	tmp = ft_strnew(ft_strlen(str));
 	if (new->precision != 0 && new->precision < (int)ft_strlen(str))
 	{
-		str2 = str;
-		str = ft_copy_string(str, new->precision);
+		tmp = ft_copy_string(str, new->precision);
+		str = tmp;
 	}
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
-		str2 = str;
-		str = ft_set_space(str, new, ' ');
+		tmp = ft_set_space(str, new, ' ');
+		str = tmp;
 	}
 	ft_putstr(str);
-	free(str);
-	free(str2);
+	free(tmp);
+	
+	return(ft_strlen(str));
+
 		
 }
