@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/06 16:45:01 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:58:38 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,10 @@ int 	create_struct(const char *format, va_list ap)
 }
 	new.conv_char = format[i];
 	//printf("char %c\n", format[i]);
-	ft_check_conv_char(&new, ap);
+	return(ft_check_conv_char(&new, ap));
 //	printf("string %d\n", new.f_minus);
 //	printf("%d\n %d\n %d\n %d\n %d\n", new.f_hash, new.f_zero, new.f_minus, new.f_plus, new.f_space);
 //	printf("%d\n %d\n %s\n %c\n", new.width, new.precision, new.length, new.conv_char);
-	return (0);
 	//should return the amount of chars printed.
 }
 
@@ -79,24 +78,35 @@ int ft_vfprintf(const char *format, va_list ap)
 
 	done = 0;
 	i = 0;
+	//printf("formatstr %s\n", format);
 	while (format[i] != '\0')
 	{
-//	printf("%s\n", &format[i]);
-
+		//printf("hiid");
 		if (format[i] == '%')
 		{
+			//printf("ok");
 		//	printf("hiid");
 		//	printf("%s\n", &format[i]);
 		i++;
 			done = done + create_struct(&format[i], ap);
+		//	printf("done %d\n i = %d\n", done, i);
 			// print the string?
-			i = i + format_strlen(&format[i]);
+			//while (format[i] != '\0' && ft_is_conv_char(format[i]) != 1)
+			//	i++;
+			//i = i + 1;
+			i = i + format_strlen(&format[i]) - 1;
+		//	printf("form %d\n", format_strlen(&format[i]));
 		//	printf("i = %d\n", i);
 		}
-		ft_putchar(format[i]);
-		done++;
+		else
+		{
+			ft_putchar(format[i]);
+			done++;
+		}
 		i++;
+		//printf("i inne %d\n", i);
 	}
+	//printf("done %d\n i = %d\n", done, i);
 	return (done);
 }
 
@@ -104,7 +114,6 @@ int	ft_printf(const char *format, ...)
 {
 	va_list ap;
 	int done;
-
 	va_start(ap, format);
 	done = ft_vfprintf(format, ap);
 	va_end(ap);
@@ -114,13 +123,21 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	//int done;
-	//char *s = "string";
-	int i = 1456;
+//	char *s = "string";
+//int i = 42;
 	//float c = 12.12;
+	//int i;
 
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4,i 7);
 	//system("leaks a.out");
-	ft_printf("test:%#8.5xera test\n", i);
-	printf("test:%#8.5xera test", i);
+	//ft_printf("%c", 't');
+	//ft_printf("%s", "string");
+	ft_printf("111%s333%.2s555\n", "222", "444");
+	printf("test %s", "string");
+	//printf("\n");
+	//printf("111%s333%.2s555", "222", "444");
+	//system("leaks a.out");
+	//printf("%d", printf("%d", 42));
+	//printf("test:%xera test", i);
 }

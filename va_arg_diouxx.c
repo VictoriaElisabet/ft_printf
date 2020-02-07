@@ -6,17 +6,18 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/06 14:43:53 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:19:43 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_va_arg_int(t_format_struct *new, va_list ap)
+int	ft_va_arg_int(t_format_struct *new, va_list ap)
 {
 	char *str;
 	long long n;
 	int a;
+	int len;
 
 	n = 0;
 	if(new->length[0] == '\0')
@@ -36,12 +37,14 @@ void	ft_va_arg_int(t_format_struct *new, va_list ap)
 		n = (short)a;
 	}
 	str = ft_itoa(n);
-	ft_check_flags_diouxx(str, new);
+	len = ft_check_flags_diouxx(str, new);
+	//free(str);
+	return(len);
 	//should return an int with the length of the string printed + one for the \0 e.g return(ft_check_flags(str))
 
 }
 
-void	ft_va_arg_octal(t_format_struct *new, va_list ap)
+int	ft_va_arg_octal(t_format_struct *new, va_list ap)
 {
 	long long n;
 	int a;
@@ -65,10 +68,10 @@ void	ft_va_arg_octal(t_format_struct *new, va_list ap)
 		n = (unsigned short)a;
 	}
 	str = ft_octal(n);
-	ft_check_flags_diouxx(str, new);
+	return(ft_check_flags_diouxx(str, new));
 }
 
-void	ft_va_arg_unsigned_int(t_format_struct *new, va_list ap)
+int	ft_va_arg_unsigned_int(t_format_struct *new, va_list ap)
 {
 	unsigned long long n; 
 	unsigned int a;
@@ -92,10 +95,10 @@ void	ft_va_arg_unsigned_int(t_format_struct *new, va_list ap)
 		n = (unsigned short)a;
 	}
 	str = ft_itoa(n);
-	ft_check_flags_diouxx(str, new);
+	return(ft_check_flags_diouxx(str, new));
 }
 
-void	ft_va_arg_hex(t_format_struct *new, va_list ap)
+int	ft_va_arg_hex(t_format_struct *new, va_list ap)
 {
 	unsigned long long n; 
 	unsigned int a;
@@ -121,5 +124,5 @@ void	ft_va_arg_hex(t_format_struct *new, va_list ap)
 	str = ft_hex(n);
 	if (new->conv_char == 'x')
 		str = ft_string_tolower(str);
-	ft_check_flags_diouxx(str, new);
+	return(ft_check_flags_diouxx(str, new));
 }

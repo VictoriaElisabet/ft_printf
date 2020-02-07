@@ -6,13 +6,13 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:08:09 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/06 14:43:55 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:47:55 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_va_arg_float(t_format_struct *new, va_list ap)
+int	ft_va_arg_float(t_format_struct *new, va_list ap)
 {
 	long double n;
 	char *str;
@@ -31,14 +31,15 @@ void	ft_va_arg_float(t_format_struct *new, va_list ap)
 		str = ft_itoa_double(n, 0);
 	else
 		str = ft_itoa_double(n, new->precision);
-	ft_check_flags_float(str, new);
+	return(ft_check_flags_float(str, new));
 }
-void	ft_va_arg_char(t_format_struct *new, va_list ap)
+int	ft_va_arg_char(t_format_struct *new, va_list ap)
 {
 	char n;
 	int a;
-	char str[2];
+	char *str;
 
+	str = (char*)malloc(1 * sizeof(char) + 1);
 	if (new->conv_char == '%')
 		n = '%';
 	else
@@ -48,24 +49,27 @@ void	ft_va_arg_char(t_format_struct *new, va_list ap)
 	}
 	str[0] = n;
 	str[1] = '\0';
-	ft_check_flags_char(str, new);
+	return(ft_check_flags_char(str, new));
 }
 
-void	ft_va_arg_string(t_format_struct *new, va_list ap)
+int	ft_va_arg_string(t_format_struct *new, va_list ap)
 {
 	char *str;
+	int len;
                     
 	str = va_arg(ap, char*);
-	ft_check_flags_string(str, new);
+	len = ft_check_flags_string(str, new);
+	return(len);
 }
 
-void	ft_va_arg_mem(t_format_struct *new, va_list ap)
+int	ft_va_arg_mem(t_format_struct *new, va_list ap)
 {
 	long long n;
 	char *str;
-
+	
 	n = va_arg(ap, long long);
 	str = ft_string_tolower(ft_hex(n));
 	str = ft_add_ox(str, new);
-	ft_check_flags_char(str, new);
+	return(ft_check_flags_char(str, new));
+	
 }

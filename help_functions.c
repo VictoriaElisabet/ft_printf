@@ -18,6 +18,7 @@ char	*ft_add_ox(char *str, t_format_struct *new)
 	char *str1;
 	char *str2;
 
+	str2 = str;
 	if(!(str1 = (char*)malloc(3 * sizeof(char))))
 		return (NULL);
 	if (new->conv_char == 'X')
@@ -32,10 +33,10 @@ char	*ft_add_ox(char *str, t_format_struct *new)
 		str1[1] = 'x';
 		str1[2] = '\0';
 	}
-	str2 = ft_strjoin(str1, str);
+	str = ft_strjoin(str1, str);
 	free(str1);
-	free(str);
-	return(str2);
+	free(str2);
+	return(str);
 }
 char *ft_set_zero(char *str, t_format_struct *new)
 {
@@ -120,9 +121,9 @@ char *ft_set_space(char *str, t_format_struct *new, char sign)
 char *ft_set_sign(char *str, char sign)
 {
 	char *str1;
-	char *str2;
+	//har *str2;
 
-	str2 = str;
+	//str2 = str;
 	str1 = (char*)malloc(2 * sizeof(char));
 	if (str[0] == '-')
 		return (str);
@@ -130,7 +131,7 @@ char *ft_set_sign(char *str, char sign)
 	str1[1] = '\0';
 	str = ft_strjoin(str1, str);
 	free(str1);
-	free(str2);
+	//free(str2);
 	return (str);
 	
 }
