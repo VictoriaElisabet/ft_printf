@@ -83,7 +83,7 @@ char *ft_set_space(char *str, t_format_struct *new, char sign)
 	widthlen = new->width - ft_strlen(str);
 	if(!(str2 = (char*)malloc(len * sizeof(char) + 1)))
 		return (NULL);
-	if (new->f_minus == 1)
+	if (new->f_minus == 1 && new->f_zero != 1) 
 	{
 		while (str[i] != '\0')
 		{
@@ -104,8 +104,10 @@ char *ft_set_space(char *str, t_format_struct *new, char sign)
 		{
 			while (str[i] != '\0' && widthlen == 0)
 				str2[j++] = str[i++];
-			if (str[i] == '+')
-				str[j++] = str[i++];
+			if (str[i] == '-' || str[i] == '-')
+			{
+				str2[j++] = str[i++];
+			}
 			if (widthlen > 0)
 			{
 				str2[j] = sign;

@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 14:58:38 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:42:43 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,25 @@ int 	create_struct(const char *format, va_list ap)
 					}
 	if (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1)
 		i = i + ft_set_length(&format[i], &new);
-	if (ft_is_conv_char(format[i]) == 1 || format[i] == '%') // add if conv_char == %, break and add as conv_char, remove ft_is_conv in the outer loop or set if format[i] == % break. 
+	if (ft_is_conv_char(format[i]) == 1 || format[i] == '%')
+	// add if conv_char == %, break and add as conv_char, remove ft_is_conv in the outer loop or set if format[i] == % break. 
 		break;
 	i++;
-}
-	new.conv_char = format[i];
+}	
+	if(ft_is_conv_char(format[i]) == 1 || format[i] == '%')
+	{
+		new.conv_char = format[i];
+
+	}
+	else
+		return(0);
 	//printf("char %c\n", format[i]);
-	return(ft_check_conv_char(&new, ap));
+
 //	printf("string %d\n", new.f_minus);
 //	printf("%d\n %d\n %d\n %d\n %d\n", new.f_hash, new.f_zero, new.f_minus, new.f_plus, new.f_space);
 //	printf("%d\n %d\n %s\n %c\n", new.width, new.precision, new.length, new.conv_char);
 	//should return the amount of chars printed.
+	return(ft_check_conv_char(&new, ap));
 }
 
 int ft_vfprintf(const char *format, va_list ap)
@@ -120,7 +128,7 @@ int	ft_printf(const char *format, ...)
 	return (done);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	//int done;
 //	char *s = "string";
@@ -133,11 +141,11 @@ int	main(void)
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
 	//ft_printf("%s", "string");
-	ft_printf("111%s333%.2s555\n", "222", "444");
-	printf("test %s", "string");
+	ft_printf("%%");
+	//printf("{%05d}", 42);
 	//printf("\n");
 	//printf("111%s333%.2s555", "222", "444");
 	//system("leaks a.out");
 	//printf("%d", printf("%d", 42));
 	//printf("test:%xera test", i);
-}
+}*/

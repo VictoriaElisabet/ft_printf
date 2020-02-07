@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 14:19:43 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:31:52 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	ft_va_arg_int(t_format_struct *new, va_list ap)
 	int len;
 
 	n = 0;
-	if(new->length[0] == '\0')
+	if(new->length[0] == 0)
+	{
 		n = va_arg(ap, int);
+	}
 	else if(new->length[0] == 'l' && new->length[1] == 'l')
 		n = va_arg(ap, long long);
 	else if(new->length[0] == 'l' && new->length[1] == '\0')

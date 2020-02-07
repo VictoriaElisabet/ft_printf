@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 11:32:50 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:09:28 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void ft_set_to_zero (t_format_struct *new)
 	new->f_minus = 0;
 	new->f_plus = 0;
 	new->f_space = 0;
+	new->length[0] = 0;
 }
 
 void ft_set_flag(char c, t_format_struct *new)
