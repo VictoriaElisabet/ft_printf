@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 16:09:28 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/09 15:22:18 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void ft_set_to_zero (t_format_struct *new)
 {
 	new->width = 0;
 	new->precision = 0;
+	new->prec = 0;
 	new->f_hash = 0;
 	new->f_zero = 0;
 	new->f_minus = 0;

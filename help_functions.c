@@ -102,12 +102,10 @@ char *ft_set_space(char *str, t_format_struct *new, char sign)
 	{
 		while (j < len)
 		{
-			while (str[i] != '\0' && widthlen == 0)
-				str2[j++] = str[i++];
+			if (str[i] != '\0' && widthlen == 0)
+				str2[j] = str[i++];
 			if (str[i] == '-' || str[i] == '-')
-			{
 				str2[j++] = str[i++];
-			}
 			if (widthlen > 0)
 			{
 				str2[j] = sign;
@@ -115,6 +113,7 @@ char *ft_set_space(char *str, t_format_struct *new, char sign)
 			}
 			j++;
 		}
+		str2[j] = '\0';
 	}
 	str2[j] = '\0';
 	return(str2);
@@ -136,4 +135,40 @@ char *ft_set_sign(char *str, char sign)
 	//free(str2);
 	return (str);
 	
+}
+char *ft_add_zero(char *str, int len)
+{
+	char *str2;
+	int strlen;
+	int dotlen;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	strlen = ft_strlen(str) + len;
+	dotlen = count_to_dot(str);
+	if(!(str2 = (char*)malloc(strlen * sizeof(char) + 1)))
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		if (dotlen > 0)
+		{
+			str2[j] = str[i++];
+			dotlen--;
+		}
+		else if (len > 0 && dotlen == 0)
+		{
+			str2[j] = '0';
+			len--;
+		}
+		else if (dotlen == 0 && len == 0)
+		{
+			str2[j] = str[i];
+			i++;
+		}
+		j++;
+	}
+	str2[j] = '\0';
+	return (str2);
 }

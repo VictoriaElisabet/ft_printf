@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:26:47 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 10:52:28 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/09 18:34:49 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_format
 	int		f_plus;
 	int		f_space;
 	int		width;
+	int		prec;
 	int		precision;
 	char	length[3];
 	char	conv_char;
@@ -64,5 +65,7 @@ char			*ft_set_space(char *str, t_format_struct *new, char sign);
 char			*ft_set_sign(char *str, char sign);
 char			*ft_copy_string(char *str, int len);
 char			*ft_string_tolower(char *str);
+char			*ft_add_zero(char *str, int len);
+char			*ft_copy_string_float(char *str, t_format_struct *new);
 
 #endif

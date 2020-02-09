@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 16:42:43 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/09 19:19:34 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ int 	create_struct(const char *format, va_list ap)
 		}
 		 			if (format[i] == '.')
 					{
+						new.prec = 1;
 						i++;
-							if (ft_isdigit(format[i]) != 1 || format[i] == '0')
-								new.precision = -1;
+							//if (ft_isdigit(format[i]) != 1 || format[i] == '0')
+							//	new.precision = -1;
 							while(ft_isdigit(format[i]) == 1 && format[i] != '\0')
 								new.precision = new.precision * 10 + format[i++] - 48;
 					}
@@ -64,10 +65,7 @@ int 	create_struct(const char *format, va_list ap)
 	i++;
 }	
 	if(ft_is_conv_char(format[i]) == 1 || format[i] == '%')
-	{
 		new.conv_char = format[i];
-
-	}
 	else
 		return(0);
 	//printf("char %c\n", format[i]);
@@ -141,9 +139,10 @@ int	ft_printf(const char *format, ...)
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
 	//ft_printf("%s", "string");
-	ft_printf("%%");
-	//printf("{%05d}", 42);
+	ft_printf("%.10f\n", 23.8341375094499);
+	printf("%.10f\n", 23.8341375094499);
 	//printf("\n");
+	//printf("%lld\n", ft_power_of(10, 12));
 	//printf("111%s333%.2s555", "222", "444");
 	//system("leaks a.out");
 	//printf("%d", printf("%d", 42));

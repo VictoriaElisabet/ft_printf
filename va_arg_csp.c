@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:08:09 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 14:47:55 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/09 19:19:06 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ int	ft_va_arg_float(t_format_struct *new, va_list ap)
 	}
 	else if (new->length[0] == 'L')
 		n =  va_arg(ap, long double);
-	if (new->precision == 0)
-		str = ft_itoa_double(n, 6);
-	else if (new->precision == -1)
-		str = ft_itoa_double(n, 0);
-	else
+		
+	//else if (new->prec == 1 && new->precision == 0)
+	//	str = ft_itoa_double(n, 2);
+	if (new->precision > 6)
 		str = ft_itoa_double(n, new->precision);
+	else
+		str = ft_itoa_double(n, 6);
 	return(ft_check_flags_float(str, new));
 }
 int	ft_va_arg_char(t_format_struct *new, va_list ap)
@@ -55,11 +56,9 @@ int	ft_va_arg_char(t_format_struct *new, va_list ap)
 int	ft_va_arg_string(t_format_struct *new, va_list ap)
 {
 	char *str;
-	int len;
                     
 	str = va_arg(ap, char*);
-	len = ft_check_flags_string(str, new);
-	return(len);
+	return(ft_check_flags_string(str, new));
 }
 
 int	ft_va_arg_mem(t_format_struct *new, va_list ap)
