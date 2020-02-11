@@ -69,6 +69,7 @@ char *ft_set_zero(char *str, t_format_struct *new)
 	str2[j] = '\0';
 	return (str2);
 }
+
 char *ft_set_space(char *str, t_format_struct *new, char sign)
 {
 	char *str2;
@@ -102,10 +103,13 @@ char *ft_set_space(char *str, t_format_struct *new, char sign)
 	{
 		while (j < len)
 		{
-			if (str[i] != '\0' && widthlen == 0)
+			if (widthlen == 0)
 				str2[j] = str[i++];
-			if (str[i] == '-' || str[i] == '-')
+			if (str[i] == '-' && sign == '0')
+			{
+	
 				str2[j++] = str[i++];
+			}
 			if (widthlen > 0)
 			{
 				str2[j] = sign;

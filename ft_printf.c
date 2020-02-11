@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/09 19:19:34 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:40:54 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int ft_set_length(const char *format, t_format_struct *new)
 
 	j = 0;
 	i = 0;
-	while (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1 && j < 2 && format[i] != '\0')
-	{
+	while (ft_isalpha(format[i]) == 1 && format[i] != '.' && ft_is_conv_char(format[i]) != 1 && j < 2 && format[i] != '\0')
+	{		
 		new->length[j] = format[i];
 		j++;
 		i++;
 	}
 	new->length[j] = '\0';
 	// needs to be - 1 since it counts one too many when it while loops 0, 1, stops at 2.
-	return (i -1);
+	return (i);
 }
 
 int 	create_struct(const char *format, va_list ap)
@@ -57,7 +57,7 @@ int 	create_struct(const char *format, va_list ap)
 							while(ft_isdigit(format[i]) == 1 && format[i] != '\0')
 								new.precision = new.precision * 10 + format[i++] - 48;
 					}
-	if (ft_isalpha(format[i]) && format[i] != '.' && ft_is_conv_char(format[i]) != 1)
+	if (ft_isalpha(format[i]) == 1 && format[i] != '.' && ft_is_conv_char(format[i]) != 1)
 		i = i + ft_set_length(&format[i], &new);
 	if (ft_is_conv_char(format[i]) == 1 || format[i] == '%')
 	// add if conv_char == %, break and add as conv_char, remove ft_is_conv in the outer loop or set if format[i] == % break. 
@@ -70,7 +70,7 @@ int 	create_struct(const char *format, va_list ap)
 		return(0);
 	//printf("char %c\n", format[i]);
 
-//	printf("string %d\n", new.f_minus);
+	//printf("pre%d\n", new.f_zero);
 //	printf("%d\n %d\n %d\n %d\n %d\n", new.f_hash, new.f_zero, new.f_minus, new.f_plus, new.f_space);
 //	printf("%d\n %d\n %s\n %c\n", new.width, new.precision, new.length, new.conv_char);
 	//should return the amount of chars printed.
@@ -139,8 +139,8 @@ int	ft_printf(const char *format, ...)
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
 	//ft_printf("%s", "string");
-	ft_printf("%.10f\n", 23.8341375094499);
-	printf("%.10f\n", 23.8341375094499);
+	ft_printf("%5.0f\n", -7.3);
+	printf("%5.0f", -7.3);
 	//printf("\n");
 	//printf("%lld\n", ft_power_of(10, 12));
 	//printf("111%s333%.2s555", "222", "444");

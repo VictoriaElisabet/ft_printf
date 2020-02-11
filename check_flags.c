@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/09 18:34:24 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:26:10 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,27 @@ int	ft_check_flags_float(char *str, t_format_struct *new)
 	if (new->f_hash == 1 && new->precision == 0)
 	{
 		tmp = str;
+		new->prec = 0;
 		str = ft_copy_string(str, len);
 	}
-	else if(ft_strlen(str) - count_to_dot(str) < 6)
+	else if(ft_strlen(str) - count_to_dot(str) < 6 && new->prec != 1)
 	{
 		tmp = str;
 		str = ft_add_zero(str, 6 - (ft_strlen(str) - count_to_dot(str)));
 	}
-	if (new->precision > 0 || new->prec == 1)
+	if (new->precision >= 0 && new->prec == 1)
 	{
 		tmp = str;
-		new->f_zero = 0;
-		if (new->precision == 0)
+		//new->f_zero = 0;
+		if (new->precision == 0 && new->prec == 1)
 			str = ft_copy_string(str, len - 1);
-		else if ((int)ft_strlen(str) - count_to_dot(str) < new->precision)
+		else if ((ft_strlen(str) - count_to_dot(str)) < (size_t)new->precision)
 			str = ft_add_zero (str, new->precision - ((int)ft_strlen(str) - count_to_dot(str)));
-		else if ((int)ft_strlen(str) - count_to_dot(str) > new->precision)
+		else if ((ft_strlen(str) - count_to_dot(str)) > (size_t)new->precision)
+		{
 			str = ft_copy_string_float(str,new);
-	}
-	
+		}
+	}	
 	if (new->f_plus == 1)
 	{
 		new->f_space = 0;
@@ -114,7 +116,9 @@ int	ft_check_flags_float(char *str, t_format_struct *new)
 			str = ft_set_space(str, new, ' ');
 		}
 		else if (new->f_zero == 1)
+		{
 			str = ft_set_space(str, new, '0');
+		}
 		else
 			str = ft_set_space(str, new, ' ');
 }

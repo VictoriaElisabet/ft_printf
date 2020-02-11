@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:08:09 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/09 19:19:06 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/11 13:24:11 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ int	ft_va_arg_float(t_format_struct *new, va_list ap)
 	else if (new->length[0] == 'L')
 		n =  va_arg(ap, long double);
 		
-	//else if (new->prec == 1 && new->precision == 0)
-	//	str = ft_itoa_double(n, 2);
-	if (new->precision > 6)
-		str = ft_itoa_double(n, new->precision);
+	if (new->prec == 1)
+	{
+		//if (new->precision == 0)
+		//	str = ft_itoa_double(n, 1);
+		//else
+			str = ft_itoa_double(n, new->precision, new);
+	}
 	else
-		str = ft_itoa_double(n, 6);
+		str = ft_itoa_double(n, 6, new);
 	return(ft_check_flags_float(str, new));
 }
 int	ft_va_arg_char(t_format_struct *new, va_list ap)
