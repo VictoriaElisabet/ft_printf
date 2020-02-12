@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/11 16:40:54 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:56:40 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,12 @@ int	ft_printf(const char *format, ...)
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
 	//ft_printf("%s", "string");
-	ft_printf("%5.0f\n", -7.3);
-	printf("%5.0f", -7.3);
+	ft_printf("%f\n", 1.5);
+	printf("%f\n", -5.9999999);
+	//printf("%lld", ft_power_of(10, 19));
 	//printf("\n");
 	//printf("%lld\n", ft_power_of(10, 12));
 	//printf("111%s333%.2s555", "222", "444");
 	//system("leaks a.out");
 	//printf("%d", printf("%d", 42));
-	//printf("test:%xera test", i);
 }*/

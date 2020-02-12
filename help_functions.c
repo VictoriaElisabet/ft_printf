@@ -48,21 +48,22 @@ char *ft_set_zero(char *str, t_format_struct *new)
 
 	i = 0;
 	j = 0;
+	if (str[0] == '-' || str[0] == '+')
+		new->precision = new->precision + 1;
 	len = (new->precision - ft_strlen(str)) + ft_strlen(str);
 	preclen = new->precision - ft_strlen(str);
 	if(!(str2 = (char*)malloc(len * sizeof(char) + 1)))
 		return (NULL);
-	while (str[i] != '\0')
-	{
+	while (j < len)
+	{	
+		if (preclen == 0)
+			str2[j] = str[i++];
+		if (str[i] == '-' || str[i] == '+')
+			str2[j++] = str[i++];
 		if (preclen > 0)
 		{
 			str2[j] = '0';
 			preclen--;
-		}
-		else
-		{
-			str2[j] = str[i];
-			i++;
 		}
 		j++;
 	}
@@ -101,15 +102,19 @@ char *ft_set_space(char *str, t_format_struct *new, char sign)
 	}
 	else
 	{
+		if ((new->conv_char == 'x' || new->conv_char == 'X') && new->f_hash == 1 && sign == '0')
+		{
+			while(j < 2)
+				str2[j++] = str[i++];
+		}
 		while (j < len)
 		{
 			if (widthlen == 0)
 				str2[j] = str[i++];
-			if (str[i] == '-' && sign == '0')
-			{
-	
+			if (str[i] == '-' && sign == '0' && new->conv_char == 'f')
 				str2[j++] = str[i++];
-			}
+			else if ((str[i] == '-' || str[i] == '+'  || str[i]== ' ') && sign == '0')
+				str2[j++] = str[i++];
 			if (widthlen > 0)
 			{
 				str2[j] = sign;

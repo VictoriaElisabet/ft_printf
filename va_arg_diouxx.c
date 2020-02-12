@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/07 16:31:52 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/12 13:29:31 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ int	ft_va_arg_hex(t_format_struct *new, va_list ap)
 		a = va_arg(ap, unsigned int);
 		n = (unsigned short)a;
 	}
+	if(n == 0)
+		new->f_hash = 0;
 	str = ft_hex(n);
 	if (new->conv_char == 'x')
 		str = ft_string_tolower(str);
