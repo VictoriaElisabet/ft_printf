@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:08:09 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/12 15:13:25 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:17:27 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	ft_va_arg_float(t_format_struct *new, va_list ap)
 		//if (new->precision == 0)
 		//	str = ft_itoa_double(n, 1);
 		//else
-			if (new->precision >= 18)
-				str = ft_itoa_double(n, 18, new);
-			else
+			//if (new->precision >= 18)
+			//	str = ft_itoa_double(n, 18, new);
+		//	else
 				str = ft_itoa_double(n, new->precision, new);
 	}
 	else
