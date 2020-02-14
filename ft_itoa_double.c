@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/13 14:38:01 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:27:07 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int		ft_is_round(long long second)
 	
 }
 
-#include <stdio.h>
 char			*ft_itoa_double(long double n, int precision, t_format_struct *new)
 {
 	char		*str;
@@ -57,77 +56,103 @@ char			*ft_itoa_double(long double n, int precision, t_format_struct *new)
 	int			len;
 	long long	first;
 	long long	second;
-	long double test;
 	long double nb;
 	long long ttmp;
-	long long temp;
+	long double temp;
 	int dlen;
 	int i;
+	int j;
 
-new = 0;
 i = 0;
+j = 0;
 dlen = 0;
 	nb = n;
 	if (n < 0)
 		n = n * -1;
+	//n = n + (n > 0 ? 0.1 : -0.5); 
 	first = (long long)n;
-	test = n - first;
+	temp = (n - first);
 	//printf("%Lf\n", test);
 	while (precision >= 0)
 	{
-		test =  test * 10;
-		temp = (long long)test;
-		test = test - temp;
+		temp =  temp * 10;
+		//temp = (long long)test;
+		second = (second * 10) + (long long)temp;
+		
+		temp = temp - (long long)temp;
 	//	printf("%lld\n", temp);
-		second = (second * 10) + temp;
+	//	second = (second * 10) + temp;  
 		precision--;
 	//	printf("%Lf\n", test);
 	}
-	first = (long long)n;
+	//if(second%10 == 0)
+		//second = second/10;
+//	first = (long long)n;
 	//second = (long long)((n - first) * (ft_power_of(10, precision + 1) + 0.5)); /*+ (n < 0 ? 0.5 : 0.5)))*/
 	//second = (long long)test;
 	//ft_putnbr(second);
-	if (precision == 0)
+	if (new->precision == 0 && new->prec == 1)
 	{
-		if(second > 5)
+		if(second%10 >= 5)
+		{
 			first = first + 1;
+			second = 0;
+		}
 	}
 	
-	else if (second%10 >= 5/*== 9 || second%10 == 8*/)
+	//if (second%10 >= 5)
+	//	second = second+10 - second%10;
+	//second = second /10;
+	
+	if (second%10 >= 5)
 	{	
 			ttmp = second;
 			dlen = count_digits(second);
+			//ft_putnbr(dlen);
+
 			//ttmp = ttmp / 10;
 				//ft_putstr("hii");
 			while (ttmp%10 > 5)
 			{
+				if(ttmp%10 == 9)
+					j++;
+				//second = second+10 - second%10;
 				//ft_putstr("hii");
+				//if(second%10 == 9)
 				ttmp = ttmp / 10;
 				i++;
+				dlen--;
 				
 			}
-			/*while (ttmp%10 == 9)
-			{
-				//ft_putstr("hii");
-				ttmp = ttmp / 10;
-				i++;
-				
-			}*/
+			//if (ttmp%10 == 9 && )new-
+			//while (ttmp%10 == 9)
+			//{
+			//	//ft_putstr("hii");
+			//	ttmp = ttmp / 10;
+			//	i++;
+			//	
+		//	}
+		//ft_putnbr(j);
 
 			//second += 10 - second%10;
-			if (i > 6)
+		
+			//ft_putnbr(dlen);
+			if (j == 7 && dlen == 0)
 				{
 					first = first + 1;
 					second = 0;
 				}
 			else
-			{
-			second = second+10 - second%10;//second + ft_power_of(10, i) - second%ft_power_of(10, i);
-			}
-}
+				second = second+10 - second%10;//second + ft_power_of(10, i) - second%ft_power_of(10, i);
+
+
+	}
+
+
 //else if (second%10 >= 5)
 //	second = second + 10 - second%10;
 	//}
+	//second = second+10 - second%10;
 	second = second /10;
 	if (second == 0)
 		len = count_digits(first) + count_digits(second) + 7;

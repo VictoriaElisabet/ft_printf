@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/13 14:38:21 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/14 16:02:40 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int ft_vfprintf(const char *format, va_list ap)
 	//printf("formatstr %s\n", format);
 	while (format[i] != '\0')
 	{
-		//printf("hiid");
+
 		if (format[i] == '%')
 		{
 			//printf("ok");
@@ -100,11 +100,13 @@ int ft_vfprintf(const char *format, va_list ap)
 			//while (format[i] != '\0' && ft_is_conv_char(format[i]) != 1)
 			//	i++;
 			//i = i + 1;
+			//printf("i = %d\n", i);
 			i = i + format_strlen(&format[i]) - 1;
 		//	printf("form %d\n", format_strlen(&format[i]));
 		//	printf("i = %d\n", i);
 		}
-		else
+
+		else if (format[i] != '%')
 		{
 			ft_putchar(format[i]);
 			done++;
@@ -139,8 +141,8 @@ int	ft_printf(const char *format, ...)
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
 	//ft_printf("%s", "string");
-	ft_printf("%f\n", 10.0894255);
-	printf("%f", 10.0894255);
+	ft_printf("%c\n", '\0');
+	printf("%c", '\0');
 	//printf("%lld", ft_power_of(10, 19));
 	//printf("\n");
 	//printf("%lld\n", ft_power_of(10, 12));
