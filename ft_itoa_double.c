@@ -137,7 +137,7 @@ dlen = 0;
 			//second += 10 - second%10;
 		
 			//ft_putnbr(dlen);
-			if (j == 7 && dlen == 0)
+			if (dlen == 0 )
 				{
 					first = first + 1;
 					second = 0;

@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/12 14:39:31 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/14 16:05:37 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,10 @@ int 	ft_check_flags_char(char *str, t_format_struct *new)
 {
 	char *tmp;
 
+	//if(*str == '\0')
+	//	write(1, "\0", 1);
 	tmp = ft_strnew(ft_strlen(str));
+	tmp = str;
 	if (new->width != 0 && new->width > (int)ft_strlen(str))
 	{
 		tmp = str;
@@ -165,7 +168,10 @@ int 	ft_check_flags_char(char *str, t_format_struct *new)
 		else
 			str = ft_set_space(str, new, ' ');
 }
-	ft_putstr(str);
+	//if (*tmp == '\0')
+		//write(1, "\0", ft_strlen(str) + 1);
+	else
+		write(1, str, ft_strlen(str));
 	//free(str);
 	free(tmp);
 
