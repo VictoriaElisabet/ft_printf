@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:26:47 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/11 13:13:03 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/16 17:09:17 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				ft_vfprintf(const char *format, va_list ap);
 int				ft_printf(const char *format, ...);
 int				ft_check_flags_diouxx(char *str, t_format_struct *new);
 int				ft_check_flags_float(char *str, t_format_struct *new);
-int				ft_check_flags_char(char *str, t_format_struct *new);
+int				ft_check_flags_char(char n, t_format_struct *new);
 int				ft_check_flags_string(char *str, t_format_struct *new);
 int				ft_va_arg_float(t_format_struct *new, va_list ap);
 int				ft_va_arg_char(t_format_struct *new, va_list ap);
@@ -67,6 +67,7 @@ char			*ft_copy_string(char *str, int len);
 char			*ft_string_tolower(char *str);
 char			*ft_add_zero(char *str, int len);
 char			*ft_copy_string_float(char *str, t_format_struct *new);
-char			*ft_itoa_double(long double n, int precision, t_format_struct *new);
+char			*ft_itoa_double(double n, int precision, t_format_struct *new);
+char			*ft_itoa_long_double(long double n, int precision, t_format_struct *new);
 
 #endif

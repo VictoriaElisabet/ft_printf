@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/14 16:02:40 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/16 18:16:16 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,14 @@ int 	create_struct(const char *format, va_list ap)
 	if (ft_isalpha(format[i]) == 1 && format[i] != '.' && ft_is_conv_char(format[i]) != 1)
 		i = i + ft_set_length(&format[i], &new);
 	if (ft_is_conv_char(format[i]) == 1 || format[i] == '%')
-	// add if conv_char == %, break and add as conv_char, remove ft_is_conv in the outer loop or set if format[i] == % break. 
 		break;
 	i++;
 }	
 	if(ft_is_conv_char(format[i]) == 1 || format[i] == '%')
+	{
 		new.conv_char = format[i];
+		//printf("conv %c\n", format[i]);
+	}
 	else
 		return(0);
 	//printf("char %c\n", format[i]);
@@ -101,7 +103,7 @@ int ft_vfprintf(const char *format, va_list ap)
 			//	i++;
 			//i = i + 1;
 			//printf("i = %d\n", i);
-			i = i + format_strlen(&format[i]) - 1;
+			i = i + format_strlen(&format[i]);
 		//	printf("form %d\n", format_strlen(&format[i]));
 		//	printf("i = %d\n", i);
 		}
@@ -128,7 +130,7 @@ int	ft_printf(const char *format, ...)
 	return (done);
 }
 
-/*int	main(void)
+int	main(void)
 {
 	//int done;
 //	char *s = "string";
@@ -136,17 +138,28 @@ int	ft_printf(const char *format, ...)
 	//float c = 12.12;
 	//int i;
 
+	//static unsigned int		mx_u = 235;
+static long double			mx_Lf = 0.375l;
+static double				mx_f = 0.625;
+//static long				mx_li =  4223372036854775800;
+//static long long			mx_lli = 3223372036654775200;
+static char				mx_c = 'G';
+//static short				mx_hi = -3244;
+//static char				mx_hhi = 'F';
+//static char			   *mx_s = "Hello, World!";
+static int					mx_i = 42;
+
 	//char *str = "japp\0";
 	//done = ft_printf(3, 10, 4,i 7);
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
 	//ft_printf("%s", "string");
-	ft_printf("%c\n", '\0');
-	printf("%c", '\0');
+	ft_printf(" testt %%    %Lf    %f    %i test   %%    %c tets \n", mx_Lf, mx_f, mx_i, mx_c);
+	printf(" testt %%    %Lf    %f    %i test   %%    %c tets ", mx_Lf, mx_f, mx_i, mx_c);
 	//printf("%lld", ft_power_of(10, 19));
 	//printf("\n");
 	//printf("%lld\n", ft_power_of(10, 12));
 	//printf("111%s333%.2s555", "222", "444");
 	//system("leaks a.out");
 	//printf("%d", printf("%d", 42));
-}*/
+}

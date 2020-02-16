@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/14 16:05:37 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/16 17:30:36 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,37 +145,54 @@ int	ft_check_flags_float(char *str, t_format_struct *new)
 	return(ft_strlen(str));
 
 }
-int 	ft_check_flags_char(char *str, t_format_struct *new)
+int 	ft_check_flags_char(char n, t_format_struct *new)
 {
-	char *tmp;
+	int i;
 
-	//if(*str == '\0')
-	//	write(1, "\0", 1);
-	tmp = ft_strnew(ft_strlen(str));
-	tmp = str;
-	if (new->width != 0 && new->width > (int)ft_strlen(str))
+	i = 0;
+	if (new->width != 0)
 	{
-		tmp = str;
+		//tmp = str;
 		if(new->f_minus == 1)
 		{
 			new->f_zero = 0;
-			str = ft_set_space(str, new, ' ');
+			//str = ft_set_space(str, new, ' ');
+			write(1, &n, 1);
+			while(new->width - 1)
+			{
+			write(1, " ", 1);
+			new->width--;
+			i++;
+			}
 		}
 		else if (new->f_zero == 1 && new->conv_char == '%')
 		{
-			str = ft_set_space(str, new, '0');
+			//str = ft_set_space(str, new, '0');
+			while(new->width - 1)
+			{
+			write(1, "0", 1);
+			new->width--;
+			i++;
+			}
 		}
 		else
-			str = ft_set_space(str, new, ' ');
+		{
+			//str = ft_set_space(str, new, ' ');
+			while(new->width - 1)
+			{
+			write(1, " ", 1);
+			new->width--;
+			i++;
+			}
+		}
 }
-	//if (*tmp == '\0')
-		//write(1, "\0", ft_strlen(str) + 1);
-	else
-		write(1, str, ft_strlen(str));
+	//write(1, str, ft_strlen(str));
+	if(new->f_minus != 1)
+		write(1, &n, 1);
 	//free(str);
-	free(tmp);
+	//free(tmp);
 
-	return(ft_strlen(str));
+	return(1 + i);
 }
 
 int 	ft_check_flags_string(char *str, t_format_struct *new)

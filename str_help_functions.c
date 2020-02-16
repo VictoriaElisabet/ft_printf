@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/09 18:36:04 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/16 18:14:47 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ int	format_strlen(const char *format)
 	int i;
 
 	i = 0;
-	if (format[i] == '%')
-		i++;
+	//if (format[i] == '%')
+	//	i++;
 	while (format[i] != '\0' && ft_is_conv_char(format[i]) != 1)
 	{  
 		if (format[i] == '%')
 			break;
 		i++;
 	}
-	return (i + 1);
+	return (i);
 }
