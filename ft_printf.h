@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:26:47 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/16 17:09:17 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:06:31 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include "./libft/libft.h"
-#include <stdio.h>
 #include <stdarg.h>
 
 typedef struct	s_format
@@ -35,6 +34,8 @@ typedef struct	s_format
 
 void			ft_set_to_zero (t_format_struct *new);
 void			ft_set_flag(char c, t_format_struct *new);
+void			fill_struct(const char *format, t_format_struct *new, int i);
+void			octal_hash_exception(char *str, t_format_struct *new);
 
 
 int				ft_is_flag(char c);
@@ -69,5 +70,7 @@ char			*ft_add_zero(char *str, int len);
 char			*ft_copy_string_float(char *str, t_format_struct *new);
 char			*ft_itoa_double(double n, int precision, t_format_struct *new);
 char			*ft_itoa_long_double(long double n, int precision, t_format_struct *new);
-
+char			*diouxx_width(char *str, char *tmp, t_format_struct *new);
+char			*diouxx_prec(char *str, char *tmp, t_format_struct *new);
+char			*plus_sign(char *str, char *tmp, t_format_struct *new);
 #endif

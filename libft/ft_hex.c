@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/12 13:37:23 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/17 14:43:39 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char			*ft_hex(long long n)
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	str[len--] = '\0';
-	if(n == 0)
+	if (n == 0)
 		str[len--] = '0';
 	while (nb > 0)
 	{
