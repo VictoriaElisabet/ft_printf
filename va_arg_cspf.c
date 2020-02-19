@@ -6,13 +6,12 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:08:09 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 17:19:23 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:27:08 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#include <stdio.h>
 int	ft_va_arg_float(t_format_struct *new, va_list ap)
 {
 	long double	n;
