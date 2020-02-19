@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   va_arg_csp.c                                       :+:      :+:    :+:   */
+/*   va_arg_cspf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:08:09 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/17 14:23:54 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:19:23 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+#include <stdio.h>
 int	ft_va_arg_float(t_format_struct *new, va_list ap)
 {
 	long double	n;
@@ -25,16 +26,16 @@ int	ft_va_arg_float(t_format_struct *new, va_list ap)
 	if (new->prec == 1)
 	{
 		if (new->length[0] == '\0' || new->length[0] == 'l')
-			str = ft_itoa_double(n, new->precision, new);
+			str = double_float(n, new->precision, new);
 		else
-			str = ft_itoa_long_double(n, new->precision, new);
+			str = long_double(n, new->precision, new);
 	}
 	else
 	{
 		if (new->length[0] == '\0' || new->length[0] == 'l')
-			str = ft_itoa_double(n, 6, new);
+			str = double_float(n, 6, new);
 		else
-			str = ft_itoa_long_double(n, 6, new);
+			str = long_double(n, 6, new);
 	}
 	return (ft_check_flags_float(str, new));
 }

@@ -6,13 +6,13 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/16 17:03:02 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:00:53 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	int		count_digits(long long n)
+/*int		count_digits(long long n)
 {
 	int i;
 
@@ -28,7 +28,7 @@ static	int		count_digits(long long n)
 	}
 	return (i);
 }
-/*int		ft_is_round(long long second)
+int		ft_is_round(long long second)
 {
 	int len;
 	int arr[count_digits(second)];
@@ -47,8 +47,8 @@ static	int		count_digits(long long n)
 	else
 		return(0);	
 	
-}*/
-
+}
+#include <stdio.h>
 char			*ft_itoa_long_double(long double n, int precision, t_format_struct *new)
 {
 	char		*str;
@@ -67,6 +67,7 @@ char			*ft_itoa_long_double(long double n, int precision, t_format_struct *new)
 i = 0;
 j = 0;
 dlen = 0;
+printf("%Lf\n", n);
 	nb = n;
 	if (n < 0)
 		n = n * -1;
@@ -94,7 +95,7 @@ dlen = 0;
 	{
 	
 		ttmp = second;
-		dlen = count_digits(second);
+		dlen = ft_count_digits(second, 10);
 		if (ttmp%10 == 8)
 		{
 			ttmp = ttmp / 10;
@@ -109,7 +110,7 @@ dlen = 0;
 
 		}
 
-		if (dlen == 0 && count_digits(second) >= 7)
+		if (dlen == 0 && ft_count_digits(second, 10) >= 7)
 		{
 			first = first + 1;
 			second = 0;
@@ -126,11 +127,11 @@ dlen = 0;
 	}
 	second = second /10;
 	if (second == 0)
-		len = count_digits(first) + count_digits(second) + 7;
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 7;
 	else if (nb < 0)
-		len = count_digits(first) + count_digits(second) + 3;
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 3;
 	else
-		len = count_digits(first) + count_digits(second) + 2;
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 2;
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL); 
 	if (!(tmp = ft_itoa(first)))
@@ -156,8 +157,9 @@ dlen = 0;
 	if (!(tmp = ft_strjoin(str, tmp)))
 		return (NULL);
 	str = tmp;
-	return (str);
-}
+	return(str);
+	}
+*/
 char* ft_itoa_double(double n, int precision, t_format_struct* new)
 {
 	char* str;
@@ -205,7 +207,7 @@ char* ft_itoa_double(double n, int precision, t_format_struct* new)
 	{
 
 		ttmp = second;
-		dlen = count_digits(second);
+		dlen = ft_count_digits(second, 10);
 		if (ttmp%10 == 8)
 		{
 			ttmp = ttmp / 10;
@@ -217,7 +219,7 @@ char* ft_itoa_double(double n, int precision, t_format_struct* new)
 			dlen--;
 
 		}
-		if (dlen == 0 && count_digits(second) >= 7)
+		if (dlen == 0 && ft_count_digits(second, 10) >= 7)
 		{
 			first = first + 1;
 			second = 0;
@@ -232,11 +234,11 @@ char* ft_itoa_double(double n, int precision, t_format_struct* new)
 	}
 	second = second / 10;
 	if (second == 0)
-		len = count_digits(first) + count_digits(second) + 7;
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 7;
 	else if (nb < 0)
-		len = count_digits(first) + count_digits(second) + 3;
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 3;
 	else
-		len = count_digits(first) + count_digits(second) + 2;
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 2;
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	if (!(tmp = ft_itoa(first)))

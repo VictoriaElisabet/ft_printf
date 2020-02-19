@@ -6,28 +6,11 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/17 14:43:39 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:50:44 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static	int		count_digits(long long n)
-{
-	int i;
-
-	i = 0;
-	if (n < 0)
-		i++;
-	if (n == 0)
-		return (1);
-	while (n)
-	{
-		n = n / 16;
-		i++;
-	}
-	return (i);
-}
 
 char			*ft_hex(long long n)
 {
@@ -37,7 +20,7 @@ char			*ft_hex(long long n)
 	int			temp;
 
 	nb = n;
-	len = count_digits(n);
+	len = ft_count_digits(n, 16);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	str[len--] = '\0';

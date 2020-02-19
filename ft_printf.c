@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/17 17:10:59 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:18:15 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 	return (done);
 }
-
-
 /*#include <stdio.h>
 int	main(void)
 {
@@ -119,8 +117,8 @@ int	main(void)
 	//float c = 12.12;
 	//int i;
 
-	//static unsigned int		mx_u = 235;
-//static long double			mx_Lf = 0.375l;
+	static unsigned int		mx_u = 235;
+static long double			mx_Lf = 0.375l;
 //static double				mx_f = 0.625;
 //static long				mx_li =  4223372036854775800;
 //static long long			mx_lli = 3223372036654775200;
@@ -135,13 +133,13 @@ int	main(void)
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
 	//ft_printf("%s", "string");
-	ft_printf("%+5d\n", 35);
-	printf("%+5d", 35);
+	ft_printf("%x %Lf  \n", mx_u, mx_Lf);
+	printf("%x %Lf  ",  mx_u, mx_Lf);
 	//printf("%lld", ft_power_of(10, 19));
 	//printf("\n");
 	//printf("%lld\n", ft_power_of(10, 12));
 	//printf("111%s333%.2s555", "222", "444");
 	//system("leaks a.out");
 	//printf("%d", printf("%d", 42));
-	//system("leaks a.out");
+	//ystem("leaks a.out");
 }*/

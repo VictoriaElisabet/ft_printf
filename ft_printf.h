@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:26:47 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/17 17:06:31 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:19:07 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # include "./libft/libft.h"
-#include <stdarg.h>
+# include <stdarg.h>
 
 typedef struct	s_format
 {
@@ -31,12 +31,10 @@ typedef struct	s_format
 
 }				t_format_struct;
 
-
 void			ft_set_to_zero (t_format_struct *new);
 void			ft_set_flag(char c, t_format_struct *new);
 void			fill_struct(const char *format, t_format_struct *new, int i);
 void			octal_hash_exception(char *str, t_format_struct *new);
-
 
 int				ft_is_flag(char c);
 int				ft_is_conv_char(char c);
@@ -59,18 +57,23 @@ int				ft_va_arg_octal(t_format_struct *new, va_list ap);
 int				ft_va_arg_unsigned_int(t_format_struct *new, va_list ap);
 int				ft_va_arg_hex(t_format_struct *new, va_list ap);
 int				ft_check_conv_char(t_format_struct *new, va_list ap);
+int				set_len(long long first, long long second, long double nb);
 
 char			*ft_add_ox(char *str, t_format_struct *new);
-char			*ft_set_zero(char *str, t_format_struct *new);
+char			*ft_add_zero_diouxx(char *str, int len, int preclen);
 char			*ft_set_space(char *str, t_format_struct *new, char sign);
 char			*ft_set_sign(char *str, char sign);
 char			*ft_copy_string(char *str, int len);
 char			*ft_string_tolower(char *str);
-char			*ft_add_zero(char *str, int len);
+char			*ft_add_zero_float(char *str, int len, int dotlen, int i);
 char			*ft_copy_string_float(char *str, t_format_struct *new);
 char			*ft_itoa_double(double n, int precision, t_format_struct *new);
-char			*ft_itoa_long_double(long double n, int precision, t_format_struct *new);
+char			*ft_itoa_long_double(long double n, int precision,
+				t_format_struct *new);
 char			*diouxx_width(char *str, char *tmp, t_format_struct *new);
 char			*diouxx_prec(char *str, char *tmp, t_format_struct *new);
 char			*plus_sign(char *str, char *tmp, t_format_struct *new);
+char			*long_double(long double n, int precision,
+				t_format_struct *new);
+char			*double_float(double n, int precision, t_format_struct *new);
 #endif

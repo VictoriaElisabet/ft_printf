@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 10:24:05 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/17 14:49:49 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:55:45 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int			ft_toupper(int c);
 int			ft_tolower(int c);
 int			ft_strequ(char const *s1, char const *s2);
 int			ft_strnequ(char const *s1, char const *s2, size_t n);
+int			ft_count_digits(long long n, int base);
 
 long long	ft_power_of(int base, int exp);
 

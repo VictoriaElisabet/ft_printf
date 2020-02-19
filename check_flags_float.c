@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/17 17:28:58 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:31:48 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ char	*float_prec(char *str, char *tmp, t_format_struct *new)
 	if (new->precision == 0 && new->prec == 1)
 		str = ft_copy_string(str, len - 1);
 	else if ((ft_strlen(str) - count_to_dot(str)) < (size_t)new->precision)
-		str = ft_add_zero(str, new->precision -
-				((int)ft_strlen(str) - count_to_dot(str)));
+		str = ft_add_zero_float(str, new->precision -
+				((int)ft_strlen(str) - count_to_dot(str)), len, 0);
 	else if ((ft_strlen(str) - count_to_dot(str)) > (size_t)new->precision)
 		str = ft_copy_string_float(str, new);
 	return (str);
@@ -74,7 +74,8 @@ int		ft_check_flags_float(char *str, t_format_struct *new)
 	else if (ft_strlen(str) - count_to_dot(str) < 6 && new->prec != 1)
 	{
 		tmp = str;
-		str = ft_add_zero(str, 6 - (ft_strlen(str) - count_to_dot(str)));
+		str = ft_add_zero_float(str, 6 - (ft_strlen(str) -
+					count_to_dot(str)), count_to_dot(str), 0);
 	}
 	if (new->precision >= 0 && new->prec == 1)
 		str = float_prec(str, tmp, new);

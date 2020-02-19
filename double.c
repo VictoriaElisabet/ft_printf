@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   long_double.c                                      :+:      :+:    :+:   */
+/*   double.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 17:19:00 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:19:45 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*long_double_first(long long first, long double nb)
+char	*double_first(long long first, long double nb)
 {
 	char *str;
 	char *tmp;
@@ -32,7 +32,7 @@ char	*long_double_first(long long first, long double nb)
 	return (str);
 }
 
-char	*long_double_join(long long first,
+char	*double_join(long long first,
 		long long second, long double nb)
 {
 	int		len;
@@ -42,7 +42,7 @@ char	*long_double_join(long long first,
 	len = set_len(first, second, nb);
 	if (!(str = (char*)malloc((sizeof(char) * (len + 1)))))
 		return (NULL);
-	tmp = long_double_first(first, nb);
+	tmp = double_first(first, nb);
 	str = tmp;
 	if (second == 0)
 	{
@@ -60,7 +60,7 @@ char	*long_double_join(long long first,
 	return (str);
 }
 
-char	*long_double_preclen_rounding(long long first,
+char	*double_preclen_rounding(long long first,
 		long long second, int dlen, long double nb)
 {
 	long long ttmp;
@@ -84,10 +84,10 @@ char	*long_double_preclen_rounding(long long first,
 	else if (second % 10 >= 5)
 		second = second + 10 - second % 10;
 	second = second / 10;
-	return (long_double_join(first, second, nb));
+	return (double_join(first, second, nb));
 }
 
-char	*long_double_rounding(long long first,
+char	*double_rounding(long long first,
 		long long second, t_format_struct *new, long double nb)
 {
 	int		dlen;
@@ -102,14 +102,14 @@ char	*long_double_rounding(long long first,
 		}
 	}
 	if (new->prec != 1)
-		return (long_double_preclen_rounding(first, second, dlen, nb));
+		return (double_preclen_rounding(first, second, dlen, nb));
 	else if (second % 10 >= 5 && new->prec != 0)
 		second = second + 10 - second % 10;
 	second = second / 10;
-	return (long_double_join(first, second, nb));
+	return (double_join(first, second, nb));
 }
 
-char	*long_double(long double n, int precision, t_format_struct *new)
+char	*double_float(double n, int precision, t_format_struct *new)
 {
 	long long	first;
 	long long	second;
@@ -129,5 +129,5 @@ char	*long_double(long double n, int precision, t_format_struct *new)
 		temp = temp - (long long)temp;
 		precision--;
 	}
-	return (long_double_rounding(first, second, new, nb));
+	return (double_rounding(first, second, new, nb));
 }

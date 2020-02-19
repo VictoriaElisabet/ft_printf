@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 13:50:38 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/19 14:58:56 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char			*ft_itoa(long long n)
+int		set_len(long long first, long long second, long double nb)
 {
-	char		*str;
-	int			len;
-	long long	nb;
+	int len;
 
-	nb = n;
-	len = ft_count_digits(n, 10);
-	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	str[len--] = '\0';
-	if (nb == 0)
-		str[len--] = '0';
-	if (nb < 0)
-	{
-		str[0] = '-';
-		nb = nb * -1;
-	}
-	while (nb > 0)
-	{
-		str[len--] = (nb % 10) + '0';
-		nb = nb / 10;
-	}
-	return (str);
+	if (second == 0)
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 7;
+	else if (nb < 0)
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 3;
+	else
+		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 2;
+	return (len);
 }
