@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 14:58:56 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/20 09:13:14 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,44 @@ int		set_len(long long first, long long second, long double nb)
 	else
 		len = ft_count_digits(first, 10) + ft_count_digits(second, 10) + 2;
 	return (len);
+}
+
+char	*ft_add_ox(char *str, t_format_struct *new)
+{
+	char *str1;
+	char *str2;
+
+	str2 = str;
+	if (!(str1 = (char*)malloc(3 * sizeof(char))))
+		return (NULL);
+	if (new->conv_char == 'X')
+	{
+		str1[0] = '0';
+		str1[1] = 'X';
+		str1[2] = '\0';
+	}
+	else
+	{
+		str1[0] = '0';
+		str1[1] = 'x';
+		str1[2] = '\0';
+	}
+	str = ft_strjoin(str1, str);
+	free(str1);
+	free(str2);
+	return (str);
+}
+
+char	*ft_set_sign(char *str, char sign)
+{
+	char *str1;
+
+	str1 = (char*)malloc(2 * sizeof(char));
+	if (str[0] == '-')
+		return (str);
+	str1[0] = sign;
+	str1[1] = '\0';
+	str = ft_strjoin(str1, str);
+	free(str1);
+	return (str);
 }

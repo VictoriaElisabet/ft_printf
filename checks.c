@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/17 14:41:07 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/20 09:23:40 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ int		ft_is_conv_char(char c)
 
 int		ft_check_conv_char(t_format_struct *new, va_list ap)
 {
+	unsigned long long n;
+
+	n = 0;
 	if (new->conv_char == 'd' || new->conv_char == 'i')
 		return (ft_va_arg_int(new, ap));
 	else if (new->conv_char == 'o')
@@ -65,7 +68,7 @@ int		ft_check_conv_char(t_format_struct *new, va_list ap)
 	else if (new->conv_char == 'u')
 		return (ft_va_arg_unsigned_int(new, ap));
 	else if (new->conv_char == 'x' || new->conv_char == 'X')
-		return (ft_va_arg_hex(new, ap));
+		return (ft_va_arg_hex(new, ap, n));
 	else if (new->conv_char == 'f')
 		return (ft_va_arg_float(new, ap));
 	else if (new->conv_char == 'c')

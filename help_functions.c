@@ -6,37 +6,11 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 16:21:37 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/20 09:13:18 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	*ft_add_ox(char *str, t_format_struct *new)
-{
-	char *str1;
-	char *str2;
-
-	str2 = str;
-	if (!(str1 = (char*)malloc(3 * sizeof(char))))
-		return (NULL);
-	if (new->conv_char == 'X')
-	{
-		str1[0] = '0';
-		str1[1] = 'X';
-		str1[2] = '\0';
-	}
-	else
-	{
-		str1[0] = '0';
-		str1[1] = 'x';
-		str1[2] = '\0';
-	}
-	str = ft_strjoin(str1, str);
-	free(str1);
-	free(str2);
-	return (str);
-}
 
 char	*ft_add_zero_diouxx(char *str, int len, int preclen)
 {
@@ -66,36 +40,30 @@ char	*ft_add_zero_diouxx(char *str, int len, int preclen)
 }
 
 char	*ft_set_space_right(char *str, char *str2,
-		t_format_struct *new, char sign, int widthlen)
+	t_format_struct *new, char sign)
 {
 	int i;
 	int j;
-	int len;
+	int widthlen;
 
 	i = 0;
 	j = 0;
-	len = (new->width - ft_strlen(str)) + ft_strlen(str);
-	if ((new->conv_char == 'x' || new->conv_char == 'X') &&
-				new->f_hash == 1 && sign == '0')
-	{
-		while (j < 2)
-			str2[j++] = str[i++];
-	}
-	while (j < len)
+	widthlen = new->width - ft_strlen(str);
+	while ((new->conv_char == 'x' || new->conv_char == 'X') &&
+				new->f_hash == 1 && sign == '0' && j < 2)
+		str2[j++] = str[i++];
+	while (j < (int)((new->width - ft_strlen(str)) + ft_strlen(str)))
 	{
 		if (widthlen == 0)
-			str2[j] = str[i++];
-		if (str[i] == '-' && sign == '0' && new->conv_char == 'f')
 			str2[j++] = str[i++];
-		else if ((str[i] == '-' || str[i] == '+' ||
-					str[i] == ' ') && sign == '0')
+		if (((str[i] == '-' || str[i] == '+' || str[i] == ' ') && sign == '0')
+		|| (str[i] == '-' && sign == '0' && new->conv_char == 'f'))
 			str2[j++] = str[i++];
 		if (widthlen > 0)
 		{
-			str2[j] = sign;
+			str2[j++] = sign;
 			widthlen--;
 		}
-		j++;
 	}
 	str2[j] = '\0';
 	return (str2);
@@ -141,22 +109,8 @@ char	*ft_set_space(char *str, t_format_struct *new, char sign)
 	if (new->f_minus == 1 && new->f_zero != 1)
 		str2 = ft_set_space_left(str, str2, sign, widthlen);
 	else
-		str2 = ft_set_space_right(str, str2, new, sign, widthlen);
+		str2 = ft_set_space_right(str, str2, new, sign);
 	return (str2);
-}
-
-char	*ft_set_sign(char *str, char sign)
-{
-	char *str1;
-
-	str1 = (char*)malloc(2 * sizeof(char));
-	if (str[0] == '-')
-		return (str);
-	str1[0] = sign;
-	str1[1] = '\0';
-	str = ft_strjoin(str1, str);
-	free(str1);
-	return (str);
 }
 
 char	*ft_add_zero_float(char *str, int len, int dotlen, int i)

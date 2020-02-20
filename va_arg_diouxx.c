@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 14:02:25 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/20 09:22:50 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,11 @@ int	ft_va_arg_unsigned_int(t_format_struct *new, va_list ap)
 	return (ft_check_flags_diouxx(str, new));
 }
 
-int	ft_va_arg_hex(t_format_struct *new, va_list ap)
+int	ft_va_arg_hex(t_format_struct *new, va_list ap, unsigned long long n)
 {
-	unsigned long long	n;
 	unsigned int		a;
 	char				*str;
 
-	n = 0;
 	if (new->length[0] == '\0')
 		n = va_arg(ap, unsigned int);
 	else if (new->length[0] == 'l' && new->length[1] == 'l')

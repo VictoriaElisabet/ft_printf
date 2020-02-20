@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 16:31:48 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/20 09:18:19 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*float_prec(char *str, char *tmp, t_format_struct *new)
 		str = ft_add_zero_float(str, new->precision -
 				((int)ft_strlen(str) - count_to_dot(str)), len, 0);
 	else if ((ft_strlen(str) - count_to_dot(str)) > (size_t)new->precision)
-		str = ft_copy_string_float(str, new);
+		str = ft_copy_string_float(str, new, len);
 	return (str);
 }
 

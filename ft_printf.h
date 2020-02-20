@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:26:47 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 17:19:07 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/20 09:25:58 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int				ft_va_arg_mem(t_format_struct *new, va_list ap);
 int				ft_va_arg_int(t_format_struct *new, va_list ap);
 int				ft_va_arg_octal(t_format_struct *new, va_list ap);
 int				ft_va_arg_unsigned_int(t_format_struct *new, va_list ap);
-int				ft_va_arg_hex(t_format_struct *new, va_list ap);
+int				ft_va_arg_hex(t_format_struct *new, va_list ap,
+				unsigned long long n);
 int				ft_check_conv_char(t_format_struct *new, va_list ap);
 int				set_len(long long first, long long second, long double nb);
 
@@ -66,7 +67,8 @@ char			*ft_set_sign(char *str, char sign);
 char			*ft_copy_string(char *str, int len);
 char			*ft_string_tolower(char *str);
 char			*ft_add_zero_float(char *str, int len, int dotlen, int i);
-char			*ft_copy_string_float(char *str, t_format_struct *new);
+char			*ft_copy_string_float(char *str, t_format_struct *new,
+				int dotlen);
 char			*ft_itoa_double(double n, int precision, t_format_struct *new);
 char			*ft_itoa_long_double(long double n, int precision,
 				t_format_struct *new);
