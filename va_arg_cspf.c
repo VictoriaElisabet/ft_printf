@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:08:09 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 17:27:08 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 17:08:37 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,12 @@ int	ft_va_arg_mem(t_format_struct *new, va_list ap)
 {
 	long long	n;
 	char		*str;
+	int			strlen;
 
 	n = va_arg(ap, long long);
 	str = ft_string_tolower(ft_hex(n));
-	str = ft_add_ox(str, new);
-	return (ft_check_flags_string(str, new));
+	//str = ft_add_ox(str, new);
+	strlen = ft_check_flags_string(str, new);
+	free(str);
+	return (strlen);
 }

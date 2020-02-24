@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 11:25:56 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 17:04:10 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		set_len(long long first, long long second, long double nb)
 char	*ft_add_ox(char *str, t_format_struct *new)
 {
 	char *str1;
-	char *str2;
+	char *tmp;
 
-	str2 = str;
+	tmp = str;
 	if (!(str1 = (char*)malloc(3 * sizeof(char))))
 		return (NULL);
 	if (new->conv_char == 'X')
@@ -47,7 +47,7 @@ char	*ft_add_ox(char *str, t_format_struct *new)
 	}
 	str = ft_strjoin(str1, str);
 	free(str1);
-	free(str2);
+	free(tmp);
 	return (str);
 }
 

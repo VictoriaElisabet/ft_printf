@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 11:45:07 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 12:05:42 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*diouxx_prec(char *str, t_format_struct *new)
 		new->f_zero = 0;
 	if (new->precision == 0 && new->prec == 1 && new->f_hash != 1)
 		str = ft_copy_string(str, 0);
+	if (new->precision == (int)ft_strlen(str) || new->precision < (int)ft_strlen(str))
+		return(str);
 	if (new->precision > (int)ft_strlen(str))
 		str = ft_add_zero_diouxx(str, len, preclen);
 	free(tmp);

@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 17:19:00 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 14:02:39 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ char	*long_double_first(long long first, long double nb)
 			return (NULL);
 	}
 	str = tmp;
+	free(tmp);
 	if (!(tmp = ft_strjoin(str, ".")))
 		return (NULL);
 	str = tmp;
+	free(tmp);
 	return (str);
 }
 
@@ -38,12 +40,13 @@ char	*long_double_join(long long first,
 	int		len;
 	char	*tmp;
 	char	*str;
-
+	//char *temp;
+	
+	tmp = 0;
 	len = set_len(first, second, nb);
-	if (!(str = (char*)malloc((sizeof(char) * (len + 1)))))
-		return (NULL);
-	tmp = long_double_first(first, nb);
-	str = tmp;
+	//if (!(str = (char*)malloc((sizeof(char) * (len + 1)))))
+	//	return (NULL);
+	//temp = str;
 	if (second == 0)
 	{
 		if (!(tmp = ft_strdup("000000")))
@@ -54,9 +57,11 @@ char	*long_double_join(long long first,
 		if (!(tmp = ft_itoa(second)))
 			return (NULL);
 	}
-	if (!(tmp = ft_strjoin(str, tmp)))
+	if (!(str = ft_strjoin(long_double_first(first, nb), tmp)))
 		return (NULL);
-	str = tmp;
+	free(tmp);
+	//free(temp);
+	//free(str2);
 	return (str);
 }
 

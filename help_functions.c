@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/20 09:13:18 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:50:31 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_set_space_right(char *str, char *str2,
 		{
 			str2[j++] = sign;
 			widthlen--;
-		}
+		}		
 	}
 	str2[j] = '\0';
 	return (str2);

@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/20 09:17:02 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 14:49:23 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ char	*ft_copy_string_float(char *str, t_format_struct *new, int dotlen)
 
 	i = 0;
 	j = 0;
-	strlen = (ft_strlen(str) - count_to_dot(str)) + new->precision;
+	strlen = count_to_dot(str) + new->precision;
 	str1 = (char*)malloc(strlen * sizeof(char) + 1);
-	while (str[i] != '\0')
+	while (str[i] != '\0' && i < strlen)
 	{
 		if (dotlen > 0)
 		{
