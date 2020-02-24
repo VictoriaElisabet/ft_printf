@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/20 09:51:48 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 11:43:37 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 	return (done);
 }
-/*#include <stdio.h>
+#include <stdio.h>
 int	main(void)
 {
 	//int done;
@@ -132,14 +132,14 @@ int	main(void)
 	//done = ft_printf(3, 10, 4,i 7);
 	//system("leaks a.out");
 	//ft_printf("%c", 't');
-	//ft_printf("%s", "string");
-	ft_printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~','');
-	printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~','');
-	//printf("%lld", ft_power_of(10, 19));
+	ft_printf("%+#10.5x", 3723);
+	//ft_printf("%+10.5d\n", 3723);
+	//ft_printf("% +10.5d\n", 3723);
+	//printf("%+10.5d", 3723); 
 	//printf("\n");
 	//printf("%lld\n", ft_power_of(10, 12));
 	//printf("111%s333%.2s555", "222", "444");
 	//system("leaks a.out");
 	//printf("%d", printf("%d", 42));
-	//ystem("leaks a.out");
-}*/
+	system("leaks a.out");
+}

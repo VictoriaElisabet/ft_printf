@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/20 09:13:14 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/24 11:25:56 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ char	*ft_add_ox(char *str, t_format_struct *new)
 char	*ft_set_sign(char *str, char sign)
 {
 	char *str1;
+	char *tmp;
 
+	tmp = str;
 	str1 = (char*)malloc(2 * sizeof(char));
 	if (str[0] == '-')
 		return (str);
@@ -62,5 +64,6 @@ char	*ft_set_sign(char *str, char sign)
 	str1[1] = '\0';
 	str = ft_strjoin(str1, str);
 	free(str1);
+	free(tmp);
 	return (str);
 }
