@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 17:09:50 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:59:23 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,46 +108,3 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 	return (done);
 }
-/*#include <stdio.h>
-int	main(void)
-{
-	//int done;
-//	char *s = "string";
-int i = 42;
-	//float c = 12.12;
-	//int i;
-
-	///static unsigned int		mx_u = 235;
-//tatic long double			mx_Lf = 0.375l;
-//static double				mx_f = 0.625;
-//static long				mx_li =  4223372036854775800;
-//static long long			mx_lli = 3223372036654775200;
-//static char				mx_c = 'G';
-//static short				mx_hi = -3244;
-//static char				mx_hhi = 'F';
-//static char			   *mx_s = "Hello, World!";
-//static int					mx_i = 42;
-//float t = 1234;
-
-	//char *str = "japp\0";
-	//done = ft_printf(3, 10, 4,i 7);
-	//system("leaks a.out");
-	//ft_printf("%c", 't');
-	//ft_printf("%+#10.5x\n", 3723);
-	//ft_printf("%7.4d", 5263);
-	////ft_printf("%+10.5d\n", 3723);
-	ft_printf("%7.2p\n", &i);
-	printf("%7.2p\n", &i);
-	//printf("%+10f\n", t); 
-	//ft_printf("%+ 10.10f\n", 1.4567);
-	//printf("%+10.10f\n", 1.4567); 
-	//printf("\n");
-	//printf("%lld\n", ft_power_of(10, 12));
-	//printf("111%s333%.2s555", "222", "444");
-	//system("leaks a.out");
-	//ft_printf("%d", printf("%17p", &42));
-	//ft_printf("%7.3s\n", "jovars");
-	//ft_printf("hello, %s\n", NULL);
-	//printf("hello, %s", NULL);
-	system("leaks a.out");
-}*/

@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 14:02:39 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:52:06 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,9 @@ char	*long_double_join(long long first,
 	int		len;
 	char	*tmp;
 	char	*str;
-	//char *temp;
-	
+
 	tmp = 0;
 	len = set_len(first, second, nb);
-	//if (!(str = (char*)malloc((sizeof(char) * (len + 1)))))
-	//	return (NULL);
-	//temp = str;
 	if (second == 0)
 	{
 		if (!(tmp = ft_strdup("000000")))
@@ -60,8 +56,6 @@ char	*long_double_join(long long first,
 	if (!(str = ft_strjoin(long_double_first(first, nb), tmp)))
 		return (NULL);
 	free(tmp);
-	//free(temp);
-	//free(str2);
 	return (str);
 }
 

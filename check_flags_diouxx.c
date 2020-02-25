@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 12:05:42 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:44:14 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ char	*diouxx_width(char *str, t_format_struct *new)
 
 char	*diouxx_prec(char *str, t_format_struct *new)
 {
-	int len;
-	int preclen;
-	char *tmp;
+	int		len;
+	int		preclen;
+	char	*tmp;
 
 	tmp = str;
 	if (str[0] == '-' || str[0] == '+')
@@ -47,8 +47,9 @@ char	*diouxx_prec(char *str, t_format_struct *new)
 		new->f_zero = 0;
 	if (new->precision == 0 && new->prec == 1 && new->f_hash != 1)
 		str = ft_copy_string(str, 0);
-	if (new->precision == (int)ft_strlen(str) || new->precision < (int)ft_strlen(str))
-		return(str);
+	if (new->precision == (int)ft_strlen(str) ||
+			new->precision < (int)ft_strlen(str))
+		return (str);
 	if (new->precision > (int)ft_strlen(str))
 		str = ft_add_zero_diouxx(str, len, preclen);
 	free(tmp);
@@ -95,6 +96,5 @@ int		ft_check_flags_diouxx(char *str, t_format_struct *new)
 	ft_putstr(str);
 	strlen = ft_strlen(str);
 	free(str);
-	//system("leaks a.out");
 	return (strlen);
 }

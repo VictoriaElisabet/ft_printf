@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 13:58:39 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:45:04 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*float_prec(char *str, t_format_struct *new)
 {
-	int len;
-	char *tmp;
+	int		len;
+	char	*tmp;
 
 	len = count_to_dot(str);
 	tmp = str;
@@ -73,8 +73,8 @@ char	*hash_float(char *str, t_format_struct *new)
 
 int		ft_check_flags_float(char *str, t_format_struct *new)
 {
-	char *tmp;
-	int strlen;
+	char	*tmp;
+	int		strlen;
 
 	tmp = str;
 	if (new->f_hash == 1 && new->precision == 0)

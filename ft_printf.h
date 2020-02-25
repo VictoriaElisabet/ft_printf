@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:26:47 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 10:48:19 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:55:08 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char			*ft_copy_string_float(char *str, t_format_struct *new,
 char			*ft_itoa_double(double n, int precision, t_format_struct *new);
 char			*ft_itoa_long_double(long double n, int precision,
 				t_format_struct *new);
-//char			*diouxx_width(char *str, char *tmp, t_format_struct *new);
-//char			*diouxx_prec(char *str, char *tmp, t_format_struct *new);
-//char			*plus_sign(char *str, char *tmp, t_format_struct *new);
+char			*diouxx_width(char *str, t_format_struct *new);
+char			*diouxx_prec(char *str, t_format_struct *new);
+char			*plus_sign(char *str, t_format_struct *new);
 char			*long_double(long double n, int precision,
 				t_format_struct *new);
 char			*double_float(double n, int precision, t_format_struct *new);
