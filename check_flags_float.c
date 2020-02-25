@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/25 11:45:04 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/25 13:12:10 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		ft_check_flags_float(char *str, t_format_struct *new)
 	int		strlen;
 
 	tmp = str;
-	if (new->f_hash == 1 && new->precision == 0)
+	if (new->f_hash == 1 && new->precision == 0 && new->prec == 1)
 		str = hash_float(str, new);
 	else if (ft_strlen(str) - count_to_dot(str) < 6 && new->prec != 1)
 	{
