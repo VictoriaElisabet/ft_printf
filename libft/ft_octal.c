@@ -6,20 +6,20 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 13:50:34 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:17:58 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_octal(long long n)
+char			*ft_octal(unsigned long long n)
 {
-	char		*str;
-	int			len;
-	long long	nb;
+	char				*str;
+	int					len;
+	unsigned long long	nb;
 
 	nb = n;
-	len = ft_count_digits(n, 8);
+	len = ft_count_udigits(n, 8);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	str[len--] = '\0';

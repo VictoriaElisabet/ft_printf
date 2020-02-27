@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 14:07:26 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 11:33:25 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:09:27 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_va_arg_unsigned_int(t_format_struct *new, va_list ap)
 		a = va_arg(ap, unsigned int);
 		n = (unsigned short)a;
 	}
-	str = ft_itoa(n);
+	str = ft_uitoa(n);
 	return (ft_check_flags_diouxx(str, new));
 }
 

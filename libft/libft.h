@@ -6,7 +6,7 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 10:24:05 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/19 13:55:45 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:17:04 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strsub(char const *s, unsigned int start, size_t len);
 char		*ft_strtrim(char const *s);
 char		*ft_itoa(long long n);
-char		*ft_octal(long long n);
-char		*ft_hex(long long n);
+char		*ft_uitoa(unsigned long long n);
+char		*ft_octal(unsigned long long n);
+char		*ft_hex(unsigned long long n);
 char		**ft_strsplit(char const *s, char c);
 
 int			ft_strcmp(const char *s1, const char *s2);
@@ -73,6 +74,7 @@ int			ft_tolower(int c);
 int			ft_strequ(char const *s1, char const *s2);
 int			ft_strnequ(char const *s1, char const *s2, size_t n);
 int			ft_count_digits(long long n, int base);
+int			ft_count_udigits(unsigned long long n, int base);
 
 long long	ft_power_of(int base, int exp);
 

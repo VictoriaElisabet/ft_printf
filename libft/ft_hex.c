@@ -6,21 +6,21 @@
 /*   By: vgrankul <vgrankul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:52:28 by vgrankul          #+#    #+#             */
-/*   Updated: 2020/02/24 16:49:53 by vgrankul         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:02:17 by vgrankul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_hex(long long n)
+char			*ft_hex(unsigned long long n)
 {
-	char		*str;
-	int			len;
-	long long	nb;
-	int			temp;
+	char				*str;
+	int					len;
+	unsigned long long	nb;
+	int					temp;
 
 	nb = n;
-	len = ft_count_digits(n, 16);
+	len = ft_count_udigits(n, 16);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	str[len--] = '\0';
